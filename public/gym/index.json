@@ -1,0 +1,142 @@
+{
+  "kStart": [
+    {
+      "file": "gym/kStart-0.mp3",
+      "text": "Klaar? Ik draai me om…"
+    }
+  ],
+  "kLopen": [
+    {
+      "file": "gym/kLopen-0.mp3",
+      "text": "Lopen maar…"
+    },
+    {
+      "file": "gym/kLopen-1.mp3",
+      "text": "Ga maar. Ik kijk niet."
+    },
+    {
+      "file": "gym/kLopen-2.mp3",
+      "text": "Beweeg maar…"
+    }
+  ],
+  "kKoekoek": [
+    {
+      "file": "gym/kKoekoek-0.mp3",
+      "text": "Annemaria… koekoek!"
+    },
+    {
+      "file": "gym/kKoekoek-1.mp3",
+      "text": "Annemaria… koe… koek!"
+    },
+    {
+      "file": "gym/kKoekoek-2.mp3",
+      "text": "Annemaria… KOEKOEK!"
+    }
+  ],
+  "kBetrapt": [
+    {
+      "file": "gym/kBetrapt-0.mp3",
+      "text": "Betrapt!"
+    },
+    {
+      "file": "gym/kBetrapt-1.mp3",
+      "text": "Ik zag je wel!"
+    },
+    {
+      "file": "gym/kBetrapt-2.mp3",
+      "text": "Jij bewoog."
+    }
+  ],
+  "kWinnaar": [
+    {
+      "file": "gym/kWinnaar-0.mp3",
+      "text": "We hebben een winnaar!"
+    }
+  ],
+  "hStart": [
+    {
+      "file": "gym/hStart-0.mp3",
+      "text": "Daar gaan we. Elke hartslag telt!"
+    }
+  ],
+  "hWerk": [
+    {
+      "file": "gym/hWerk-0.mp3",
+      "text": "Werken! Gas erop!"
+    },
+    {
+      "file": "gym/hWerk-1.mp3",
+      "text": "Go! Elke slag telt!"
+    },
+    {
+      "file": "gym/hWerk-2.mp3",
+      "text": "En weer aan de bak!"
+    }
+  ],
+  "hRust": [
+    {
+      "file": "gym/hRust-0.mp3",
+      "text": "Rust. Adem lang uit."
+    },
+    {
+      "file": "gym/hRust-1.mp3",
+      "text": "En… rust. Laat je hart zakken."
+    },
+    {
+      "file": "gym/hRust-2.mp3",
+      "text": "Stop maar. Rustig ademen."
+    }
+  ],
+  "hTien": [
+    {
+      "file": "gym/hTien-0.mp3",
+      "text": "Nog tien seconden. Dan kijk ik."
+    },
+    {
+      "file": "gym/hTien-1.mp3",
+      "text": "Tien seconden. Breng hem omlaag."
+    }
+  ],
+  "hKoekoek": [
+    {
+      "file": "gym/hKoekoek-0.mp3",
+      "text": "Koekoek! Hartslagcheck!"
+    },
+    {
+      "file": "gym/hKoekoek-1.mp3",
+      "text": "Koekoek! Even kijken…"
+    }
+  ],
+  "hGoed": [
+    {
+      "file": "gym/hGoed-0.mp3",
+      "text": "Netjes onder de grens."
+    },
+    {
+      "file": "gym/hGoed-1.mp3",
+      "text": "Mooi hersteld."
+    }
+  ],
+  "hStraf": [
+    {
+      "file": "gym/hStraf-0.mp3",
+      "text": "Te hoog! Strafslagen."
+    },
+    {
+      "file": "gym/hStraf-1.mp3",
+      "text": "Dat hart bonst nog. Strafslagen."
+    }
+  ],
+  "hLaatste": [
+    {
+      "file": "gym/hLaatste-0.mp3",
+      "text": "Laatste ronde!"
+    }
+  ],
+  "hEinde": [
+    {
+      "file": "gym/hEinde-0.mp3",
+      "text": "Klaar! Goed gewerkt."
+    }
+  ]
+}

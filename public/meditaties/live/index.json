@@ -1,0 +1,116 @@
+{
+  "begin": [
+    {
+      "file": "meditaties/live/begin-0.mp3",
+      "text": "Ik ben er. Ik luister mee."
+    },
+    {
+      "file": "meditaties/live/begin-1.mp3",
+      "text": "Stil maar. Ik hoor je al."
+    }
+  ],
+  "hartOmhoog": [
+    {
+      "file": "meditaties/live/hartOmhoog-0.mp3",
+      "text": "Er gebeurt iets in je. Dat mag."
+    },
+    {
+      "file": "meditaties/live/hartOmhoog-1.mp3",
+      "text": "Je hart versnelt. Ik hoor het."
+    }
+  ],
+  "hartOmlaag": [
+    {
+      "file": "meditaties/live/hartOmlaag-0.mp3",
+      "text": "Je hart zakt. Tree voor tree."
+    },
+    {
+      "file": "meditaties/live/hartOmlaag-1.mp3",
+      "text": "Langzamer. Ja."
+    },
+    {
+      "file": "meditaties/live/hartOmlaag-2.mp3",
+      "text": "Hoor je dat? Het wordt trager."
+    }
+  ],
+  "hartRustig": [
+    {
+      "file": "meditaties/live/hartRustig-0.mp3",
+      "text": "Zo klinkt rust, bij jou."
+    },
+    {
+      "file": "meditaties/live/hartRustig-1.mp3",
+      "text": "Dit tempo is van jou. Ik volg alleen."
+    }
+  ],
+  "ademLanger": [
+    {
+      "file": "meditaties/live/ademLanger-0.mp3",
+      "text": "Je adem wordt langer."
+    },
+    {
+      "file": "meditaties/live/ademLanger-1.mp3",
+      "text": "Zo. Laat die uitademing maar duren."
+    }
+  ],
+  "ademSnel": [
+    {
+      "file": "meditaties/live/ademSnel-0.mp3",
+      "text": "Je ademt hoog en snel. Laat je buik meedoen."
+    },
+    {
+      "file": "meditaties/live/ademSnel-1.mp3",
+      "text": "Er is haast in je adem. Je mag hem laten gaan."
+    }
+  ],
+  "ademStil": [
+    {
+      "file": "meditaties/live/ademStil-0.mp3",
+      "text": "Je houdt je adem vast. Laat maar los."
+    },
+    {
+      "file": "meditaties/live/ademStil-1.mp3",
+      "text": "Waar is je adem gebleven?"
+    }
+  ],
+  "diep": [
+    {
+      "file": "meditaties/live/diep-0.mp3",
+      "text": "Dat was een diepe."
+    },
+    {
+      "file": "meditaties/live/diep-1.mp3",
+      "text": "Mmm. Die kwam van ver."
+    }
+  ],
+  "samen": [
+    {
+      "file": "meditaties/live/samen-0.mp3",
+      "text": "Je hart en je adem lopen nu samen."
+    },
+    {
+      "file": "meditaties/live/samen-1.mp3",
+      "text": "Bij elke inademing versnelt je hart even. Hoor je dat golfje?"
+    }
+  ],
+  "stilte": [
+    {
+      "file": "meditaties/live/stilte-0.mp3",
+      "text": "Ik zeg even niets."
+    },
+    {
+      "file": "meditaties/live/stilte-1.mp3",
+      "text": "Ik ben er nog."
+    }
+  ],
+  "einde": [
+    {
+      "file": "meditaties/live/einde-0.mp3",
+      "text": "Blijf nog even liggen. Ik word zachter."
+    },
+    {
+      "file": "meditaties/live/einde-1.mp3",
+      "text": "Dank je. Voor je hart."
+    }
+  ]
+}

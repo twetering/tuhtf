@@ -1,0 +1,16 @@
+[
+  {
+    "id": "koraly-v2",
+    "label": "ElevenLabs · Koraly · v2",
+    "tekst": "Stil maar. Ik ben er al. Ik heb geen oren. En toch hoor ik je. Zesentachtig keer per minuut klop je tegen de binnenkant van jezelf.",
+    "audio": "meditaties/proef/koraly-v2.mp3",
+    "engine": "eleven"
+  },
+  {
+    "id": "koraly-v3",
+    "label": "ElevenLabs · Koraly · v3 met regietags",
+    "tekst": "[whispers] Stil maar. Ik ben er al. [pause] Ik heb geen oren. [softly] En toch hoor ik je. [pause] Zesentachtig keer per minuut klop je tegen de binnenkant van jezelf.",
+    "audio": "meditaties/proef/koraly-v3.mp3",
+    "engine": "eleven"
+  }
+]
