@@ -5,6 +5,16 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      // elke subpagina een eigen ingang: landingspagina, de React-app, en losse subprojecten
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        app: path.resolve(__dirname, 'app.html'),
+        dierNadoen: path.resolve(__dirname, 'dier-nadoen/index.html'),
+      },
+    },
+  },
   server: {
     proxy: {
       '/api': {

@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Dit start Vite (meestal op http://localhost:5173) en een kleine API-server op poort 8788. De Speelkamer staat op `http://localhost:5173/#speelkamer`. Hij heeft de API-server niet nodig. Die is alleen voor de zwerm- en huiskamer-prototypes, die taalmodellen aanroepen.
+Dit start Vite (meestal op http://localhost:5173) en een kleine API-server op poort 8788. Op `http://localhost:5173` staat de landingspagina met alle subprojecten. De Speelkamer staat op `http://localhost:5173/app.html#speelkamer`. Hij heeft de API-server niet nodig. Die is alleen voor de zwerm- en huiskamer-prototypes, die taalmodellen aanroepen.
 
 ```bash
 npm run build     # productiebuild naar dist/
@@ -22,19 +22,34 @@ npm run preview   # bekijk de build lokaal
 
 ## Adressen
 
+Het project heeft drie ingangen (zie `build.rollupOptions.input` in `vite.config.ts`):
+
+- `index.html`: de landingspagina. Gewone HTML, zonder React. Een adres met een hash (zoals het oude `…/#speelkamer`) stuurt hij door naar `/app.html#…`.
+- `app.html`: de React-app met de Speelkamer en de oudere prototypes. Welke je ziet, hangt af van de hash.
+- `dier-nadoen/index.html`: het subproject Dier nadoen. Los TypeScript, zonder React.
+
 | Adres | Wat |
 |---|---|
-| `#speelkamer` | De Speelkamer met alle werkvormen |
-| `#speelkamer/zender?kanaal=<code>` | Telefoon als zender (band en/of bewegingssensor) |
-| `#speelkamer/klok?kanaal=<code>` | Klokscherm voor de ruimte (bij *Wiens klok?*) |
-| `#huiskamer` | Huiskamer v2: *De kamer luistert* |
-| `#huiskamer-v1` | Huiskamer v1 |
-| (leeg) | Zwermcanvas met LLM-agents |
+| `/` | Landingspagina |
+| `/dier-nadoen/` | Dier nadoen |
+| `/app.html#speelkamer` | De Speelkamer met alle werkvormen |
+| `/app.html#speelkamer/zender?kanaal=<code>` | Telefoon als zender (band en/of bewegingssensor) |
+| `/app.html#speelkamer/klok?kanaal=<code>` | Klokscherm voor de ruimte (bij *Wiens klok?*) |
+| `/app.html#huiskamer` | Huiskamer v2: *De kamer luistert* |
+| `/app.html#huiskamer-v1` | Huiskamer v1 |
+| `/app.html` | Zwermcanvas met LLM-agents |
 | `/tijdatlas.html` | Tijdatlas: *Kwartiermaken in het klokgebouw* |
 
 ## Mappen
 
 ```
+index.html           landingspagina
+app.html             ingang van de React-app (src/main.tsx)
+dier-nadoen/         subproject Dier nadoen
+  main.ts            interface: zes stappen, bronnen (M5Stick via MQTT, telefoon, simulatie), opslag
+  features.ts        kenmerken per venster van 2 s
+  model.ts           kNN en eerlijk toetsen
+  sim.ts             gesimuleerde dieren
 src/
   speelkamer/        De Speelkamer
     Speelkamer.tsx   schil: navigatie, bovenbalk, opstelling (⚙), info-paneel (ⓘ)
@@ -96,6 +111,15 @@ We gebruiken bewust geen gekloonde stemmen van echte, herkenbare mensen.
 3. Zet uitleg in `<Uitleg title="…">`. Die tekst verschijnt in het info-paneel onder de ⓘ, niet op het scherm zelf.
 4. Gebruik `useFrame` voor animatie, en `hub.bodies` voor de data.
 5. Schrijf er een pagina bij in `docs/werkvormen/`.
+
+## Een subproject toevoegen
+
+Een werkvorm die niet in de Speelkamer past, krijgt een eigen map, net als `dier-nadoen/`.
+
+1. Maak een map met een eigen `index.html` en code.
+2. Voeg die `index.html` toe aan `build.rollupOptions.input` in `vite.config.ts`, en de map aan `include` in `tsconfig.app.json`.
+3. Zet een kaart op de landingspagina (`index.html` in de root).
+4. Wil je de sensoren van de Speelkamer gebruiken? Abonneer je dan op hetzelfde MQTT-kanaal: `tuhtf/speelkamer/<kanaal>/lijf/+`. Een M5Stick stuurt daar `raw` (versnelling in mg) en `g` (gyro in °/s) op 50 Hz. Zie `dier-nadoen/main.ts`.
 
 ## Typecheck
 

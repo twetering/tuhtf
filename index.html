@@ -5,9 +5,106 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TUHTF · Teach us how to feel</title>
+    <script>
+      // oude links (…/#speelkamer, …/#huiskamer) blijven werken
+      const naarApp = () => location.hash.length > 1 && location.replace('/app.html' + location.hash);
+      naarApp();
+      addEventListener('hashchange', naarApp);
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #08070a; --ink: #fff; --ink-2: #d6d4d8; --ink-3: #9a979e; --ink-4: #66636a;
+        --line: rgba(255, 255, 255, 0.14); --acc: #d9ff6b; --acc-ink: #08070a;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: var(--bg); color: var(--ink); }
+      body { font: 400 16px/1.5 Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+      a { color: inherit; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 56px 24px 80px; }
+      .kicker, .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+      .kicker { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); }
+      h1 { font-weight: 300; font-size: clamp(44px, 8vw, 104px); line-height: 0.92; letter-spacing: -0.045em; margin: 18px 0 22px; }
+      h1 em { font-style: normal; color: var(--acc); }
+      .lede { font-weight: 300; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.45; color: var(--ink-2); max-width: 62ch; margin: 0; }
+      h2 { font-family: 'Geist Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); margin: 64px 0 16px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 14px; }
+      .card { display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); box-shadow: inset 0 0 0 1px var(--line); text-decoration: none; transition: background 150ms, transform 150ms; min-height: 210px; }
+      .card:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-2px); }
+      .card.main { background: var(--acc); color: var(--acc-ink); box-shadow: none; }
+      .card.main .q, .card.main .meta { color: rgba(8, 7, 10, 0.72); }
+      .card .t { font-weight: 400; font-size: 28px; letter-spacing: -0.03em; line-height: 1.05; }
+      .card .q { color: var(--ink-2); font-weight: 300; }
+      .card .meta { margin-top: auto; font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--ink-3); display: flex; justify-content: space-between; gap: 12px; }
+      .tag { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 7px; border-radius: 999px; box-shadow: inset 0 0 0 1px currentColor; align-self: flex-start; opacity: 0.8; }
+      .docs { display: flex; flex-wrap: wrap; gap: 10px; }
+      .docs a { text-decoration: none; padding: 9px 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; }
+      .docs a:hover { box-shadow: inset 0 0 0 1px var(--ink-3); }
+      footer { margin-top: 72px; color: var(--ink-4); font-size: 13px; }
+      @media (max-width: 520px) { .wrap { padding: 36px 16px 60px; } .card { min-height: 0; } }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <main class="wrap">
+      <div class="kicker">TUHTF · onderzoek naar belichaamde kennis</div>
+      <h1>Teach us<br />how to <em>feel</em></h1>
+      <p class="lede">
+        Kunnen we belichaamde kennis overdragen, aan elkaar en aan machines? Hier staan de prototypes en werkvormen
+        van het project. Elk is een kleine proef: met hartslagbanden, bewegingssensoren, stemmen en modellen.
+      </p>
+
+      <h2>Werkvormen</h2>
+      <div class="grid">
+        <a class="card main" href="/app.html#speelkamer">
+          <span class="tag">hoofdproject</span>
+          <span class="t">Speelkamer</span>
+          <span class="q">Acht werkvormen met hart, adem en beweging: van Wiens klok? tot machine- en AI-meditaties.</span>
+          <span class="meta"><span>hartslagband · M5Stick · telefoon</span><span>→</span></span>
+        </a>
+        <a class="card" href="/dier-nadoen/">
+          <span class="tag">nieuw</span>
+          <span class="t">Dier nadoen</span>
+          <span class="q">Beweeg als een kikker, vogel, slang of paard. Bouw samen een model dat raadt welk dier je bent, en probeer het daarna te foppen.</span>
+          <span class="meta"><span>M5Stick of telefoon · de hele AI-keten</span><span>→</span></span>
+        </a>
+      </div>
+
+      <h2>Andere prototypes</h2>
+      <div class="grid">
+        <a class="card" href="/app.html">
+          <span class="t">Zwermcanvas</span>
+          <span class="q">Taalmodellen tekenen om de beurt een lijnstukje op één doek, elk met een geheime beperking. Kunnen machines samen iets maken zonder lichaam?</span>
+          <span class="meta"><span>API-sleutels nodig</span><span>→</span></span>
+        </a>
+        <a class="card" href="/app.html#huiskamer">
+          <span class="t">Huiskamer v2</span>
+          <span class="q">De kamer luistert: een AI-dirigent die alleen via huishoudelijke apparaten spreekt. Kan een kamer zonder woorden een groep laten lummelen?</span>
+          <span class="meta"><span>API-sleutels nodig</span><span>→</span></span>
+        </a>
+        <a class="card" href="/app.html#huiskamer-v1">
+          <span class="t">Huiskamer v1</span>
+          <span class="q">De eerste versie van De kamer luistert.</span>
+          <span class="meta"><span>API-sleutels nodig</span><span>→</span></span>
+        </a>
+        <a class="card" href="/tijdatlas.html">
+          <span class="t">Tijdatlas</span>
+          <span class="q">Kunst die tijd laat haperen, lichamen laat wachten en machines laat antwoorden. Kwartiermaken in het klokgebouw.</span>
+          <span class="meta"><span>statisch</span><span>→</span></span>
+        </a>
+      </div>
+
+      <h2>Documentatie</h2>
+      <div class="docs">
+        <a href="https://github.com/twetering/tuhtf/blob/main/docs/over-tuhtf.md">Over TUHTF</a>
+        <a href="https://github.com/twetering/tuhtf/blob/main/docs/handleiding-docenten.md">Handleiding voor docenten</a>
+        <a href="https://github.com/twetering/tuhtf/tree/main/docs/werkvormen">Werkvormen</a>
+        <a href="https://github.com/twetering/tuhtf/blob/main/docs/hardware.md">Hardware</a>
+        <a href="https://github.com/twetering/tuhtf/blob/main/docs/techniek.md">Techniek</a>
+      </div>
+
+      <footer>Chrome of Edge aanbevolen: Web Bluetooth werkt alleen daar.</footer>
+    </main>
   </body>
 </html>

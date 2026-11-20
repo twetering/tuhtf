@@ -38,7 +38,7 @@ Alles werkt ook **zonder sensoren**. De app vult dan aan met gesimuleerde licham
 **Minimaal**
 - Een laptop met **Chrome of Edge**. Web Bluetooth werkt niet in Safari en Firefox.
 - Speakers, of een koptelefoon met splitter voor de werkvormen met twee personen.
-- De Speelkamer: de gedeployde versie, of lokaal gestart (zie [techniek](techniek.md)). Adres: `…/#speelkamer`.
+- De Speelkamer: de gedeployde versie, of lokaal gestart (zie [techniek](techniek.md)). Adres: `…/app.html#speelkamer`, of kies de Speelkamer op de landingspagina.
 
 **Voor echte lichaamsdata**
 - **Hartslagbanden** met Bluetooth die het standaard hartslagprofiel spreken. Getest: Polar H10 en Garmin HRM-Pro Plus. De meeste borstbanden van €30 tot €90 werken. Polsbandjes en horloges meestal niet, of alleen in een speciale uitzendmodus.

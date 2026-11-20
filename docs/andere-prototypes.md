@@ -2,7 +2,7 @@
 
 Naast de Speelkamer staan hier eerdere en parallelle proeven uit TUHTF. Ze zijn minder uitgewerkt als werkvorm, maar laten zien waar het project vandaan komt.
 
-## Zwermcanvas (`/`)
+## Zwermcanvas (`/app.html`)
 
 *Kunnen machines samen iets maken zonder lichaam, en wat voelen ze daarbij?*
 
@@ -10,7 +10,7 @@ Een aantal LLM-agents tekent elk één lijnstukje per beurt op een gedeeld canva
 
 Vereist API-sleutels van één of meer taalmodelaanbieders (zie `.env.example`). Start met `npm run dev`.
 
-## Huiskamer v1 en v2: *De kamer luistert* (`#huiskamer-v1`, `#huiskamer`)
+## Huiskamer v1 en v2: *De kamer luistert* (`/app.html#huiskamer-v1`, `/app.html#huiskamer`)
 
 *Kan een kamer zonder woorden een groep laten lummelen?*
 
