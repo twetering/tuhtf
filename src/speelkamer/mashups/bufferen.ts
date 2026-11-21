@@ -3,13 +3,13 @@
  * Een voorlader die 'nadenkt' zoals een AI: de fases van het wasprogramma heten marineren, karnen,
  * sudderen, herkauwen, mijmeren en zweven. Rond de deur loopt een ring van lampjes als laadwieltje,
  * één stap per hartslag. De trommel heeft de echte wascadans: een paar rondjes linksom, even stil,
- * rondjes rechtsom. In de trommel alleen schuim.
+ * rondjes rechtsom. De trommel is leeg.
  */
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { audio, Hum, tick } from '../sound';
 import type { Drive } from '../Digitaal';
-import { brushedTex, canvasTex, font, keyLight, mat, rng, shadows, tileTex, type Mashup, type Stage } from './stage';
+import { brushedTex, canvasTex, font, keyLight, mat, shadows, tileTex, type Mashup, type Stage } from './stage';
 
 /** Fases van het programma: een denkwoord en hoe de trommel beweegt (omwentelingen per hartslag). */
 type Fase = { woord: string; omega: (p: number) => number };
@@ -224,42 +224,6 @@ export function bufferen(st: Stage): Mashup {
   drumLight.position.set(0, doorY + 0.1, dz + 0.12);
   m.add(drumLight);
 
-  // water
-  const waterY = -0.152;
-  const chord = 2 * Math.sqrt(0.2 * 0.2 - waterY * waterY);
-  const foam = canvasTex(512, 512, (g) => {
-    g.fillStyle = '#3f525c';
-    g.fillRect(0, 0, 512, 512);
-    const r = rng(79);
-    for (let i = 0; i < 260; i++) {
-      g.fillStyle = `rgba(240,248,255,${0.03 + r() * 0.16})`;
-      g.beginPath();
-      g.arc(r() * 512, r() * 512, 2 + r() * 14, 0, Math.PI * 2);
-      g.fill();
-    }
-  });
-  const water = new THREE.Mesh(new THREE.PlaneGeometry(chord, 0.36, 24, 24), new THREE.MeshPhysicalMaterial({ map: foam.tex, roughness: 0.06, clearcoat: 1, metalness: 0.1 }));
-  water.rotation.x = -Math.PI / 2;
-  water.position.set(0, doorY + waterY, dz);
-  m.add(water);
-
-  // schuim: honderden belletjes die op de bodem liggen en meegolven met de trommel
-  const r = rng(83);
-  const NB = 520;
-  const foamMat = new THREE.MeshPhysicalMaterial({ color: 0xf2f6f9, roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.05, iridescence: 0.45, iridescenceIOR: 1.3, sheen: 0.5, sheenColor: new THREE.Color(0xdfefff) });
-  const bubbles = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 3), foamMat, NB);
-  bubbles.castShadow = bubbles.receiveShadow = true;
-  m.add(bubbles);
-  const bub = Array.from({ length: NB }, () => {
-    const depth = Math.pow(r(), 0.7); // 0 = tegen de wand, 1 = bovenop de berg
-    return { a: -Math.PI / 2 + (r() - 0.5) * 2.2 * (1 - depth * 0.55), rr: 0.19 - depth * 0.07 - r() * 0.01, z: dz - 0.17 + r() * 0.34, s: 0.005 + r() * r() * 0.022 * (1 - depth * 0.4), ph: r() * 6 };
-  });
-  const bm = new THREE.Matrix4();
-  const bq = new THREE.Quaternion();
-  const bv = new THREE.Vector3();
-  const bs = new THREE.Vector3();
-  water.visible = true;
-
   shadows(m);
   floor.receiveShadow = wall.receiveShadow = true;
   glass.castShadow = false;
@@ -276,7 +240,6 @@ export function bufferen(st: Stage): Mashup {
   let prog = 0;
   let hum: Hum | null = null;
   let soundOn = false;
-  let slosh = 0;
 
   let lcdKey = '';
   const drawLcd = () => {
@@ -330,27 +293,9 @@ export function bufferen(st: Stage): Mashup {
       const db = Number.isNaN(prevBeat) ? 0 : Math.max(0, Math.min(0.2, d.beat - prevBeat));
       prevBeat = d.beat;
       const want = FASES[prog].omega(beatsIn + (d.beat - b));
-      const prevOmega = omega;
       omega += (want - omega) * Math.min(1, dt * 2.2); // traagheid: rustig optrekken en uitlopen
       angle += omega * db * Math.PI * 2;
       drum.rotation.z = angle;
-      // schuim klotst tegen de draairichting in en zakt weer terug
-      const acc = (omega - prevOmega) / Math.max(dt, 1e-3);
-      slosh += (Math.max(-0.6, Math.min(0.6, omega * 0.9 + acc * 0.25)) - slosh) * Math.min(1, dt * 1.6);
-      water.rotation.y = slosh * 0.08;
-      water.position.y = doorY + waterY + Math.sin(t * 1.1) * 0.002;
-      for (let i = 0; i < NB; i++) {
-        const q = bub[i];
-        const lift = slosh * (0.5 + (0.19 - q.rr) * 4);
-        const a = q.a + lift + Math.sin(t * 0.7 + q.ph) * 0.02;
-        const rr = q.rr + Math.sin(t * 0.9 + q.ph * 2) * 0.002;
-        bv.set(Math.cos(a) * rr, doorY + Math.sin(a) * rr, q.z);
-        const sc = q.s * (1 + Math.sin(t * 1.3 + q.ph) * 0.06);
-        bs.set(sc, sc * 0.92, sc);
-        bm.compose(bv, bq, bs);
-        bubbles.setMatrixAt(i, bm);
-      }
-      bubbles.instanceMatrix.needsUpdate = true;
       // laadwieltje rond de deur: één stap per hartslag, met een staart
       const since = t - headT;
       dots.forEach((dm, i) => {

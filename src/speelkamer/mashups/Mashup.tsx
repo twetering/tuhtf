@@ -53,8 +53,9 @@ export default function Mashup({ kind, d, soundOn, info }: { kind: MashupKind; d
       last = now;
       const t = now / 1000;
       m.update(dRef.current, t, dt);
-      // de camera schuift heel traag heen en weer in een eigen tempo (14 s), los van de bezoeker
-      st.render(0.5 - 0.5 * Math.cos((t / 14) * Math.PI * 2), t);
+      // ook de camera loopt op de hartslag: heel traag in en uit, één keer per 14 slagen
+      const beat = dRef.current.beat;
+      st.render(0.5 - 0.5 * Math.cos((beat / 14) * Math.PI * 2), beat);
       if (now - lastStatus > 250) {
         lastStatus = now;
         setStatus(m.status());

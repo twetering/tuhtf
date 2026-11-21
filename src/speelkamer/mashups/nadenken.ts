@@ -1,9 +1,9 @@
 /**
  * Nadenken: een regulateur die op je hartslag loopt.
- * Uur- en minuutwijzer geven de gewone tijd aan. De terracotta lolliwijzer is je hart: hij springt
- * één streepje per hartslag, en de slinger zwaait één keer per slag. Telkens als de hartwijzer de
- * minuutwijzer inhaalt, slaat de klok: de tijd en je hartslag raken elkaar even. Hoe rustiger je
- * hart, hoe langer het duurt tot de volgende slag.
+ * Uur-, minuut- en secondewijzer geven de gewone tijd aan. De terracotta lolliwijzer is je hart: hij
+ * springt één streepje per hartslag, en de slinger zwaait één keer per slag. Telkens als hartwijzer
+ * en secondewijzer op hetzelfde streepje staan, slaat de klok: de tijd en je hartslag raken elkaar.
+ * Hoe dichter je hart bij 60 slagen per minuut komt, hoe langer ze samen oplopen.
  * Over de muur trekt langzaam het zonlicht van een raam.
  */
 import * as THREE from 'three';
@@ -241,6 +241,18 @@ export function nadenken(st: Stage): Mashup {
   const minHand = new THREE.Mesh(breguet(0.112, 0.0032), blued);
   minHand.position.set(0, dialY, handZ + 0.0018);
   clock.add(minHand);
+  // secondewijzer: een dunne stalen naald met contragewicht
+  const secShape = new THREE.Shape();
+  secShape.moveTo(-0.0007, -0.032);
+  secShape.lineTo(0.0007, -0.032);
+  secShape.lineTo(0.00045, 0.118);
+  secShape.lineTo(-0.00045, 0.118);
+  secShape.closePath();
+  const secW = new THREE.Shape();
+  secW.absarc(0, -0.026, 0.0052, 0, Math.PI * 2, false);
+  const secHand = new THREE.Mesh(new THREE.ExtrudeGeometry([secShape, secW], { depth: 0.001, bevelEnabled: false, curveSegments: 20 }), new THREE.MeshStandardMaterial({ color: 0x1a1a1c, metalness: 0.8, roughness: 0.3 }));
+  secHand.position.set(0, dialY, handZ + 0.0029);
+  clock.add(secHand);
   const lolly = new THREE.Shape();
   lolly.moveTo(-0.0011, -0.03);
   lolly.lineTo(0.0011, -0.03);
@@ -253,7 +265,7 @@ export function nadenken(st: Stage): Mashup {
   tail.absarc(0, -0.026, 0.004, 0, Math.PI * 2, false);
   const terra = new THREE.MeshStandardMaterial({ color: TERRA, roughness: 0.35, metalness: 0.2 });
   const beatHand = new THREE.Mesh(new THREE.ExtrudeGeometry([lolly, disc, tail], { depth: 0.0012, bevelEnabled: false, curveSegments: 24 }), terra);
-  beatHand.position.set(0, dialY, handZ + 0.0038);
+  beatHand.position.set(0, dialY, handZ + 0.0042);
   clock.add(beatHand);
   // naaf: een kleine vonk, die gloeit als de klok slaat
   const sparkTex = canvasTex(256, 256, (g) => {
@@ -307,9 +319,10 @@ export function nadenken(st: Stage): Mashup {
   let soundOn = false;
   let strikes = 0;
   let strikeT = -99;
-  let prevGap = NaN;
+  let armed = false;
+  let lastSec = -1;
+  let secT = 0;
   const TAU = Math.PI * 2;
-  const wrap = (a: number) => ((a % 1) + 1) % 1;
 
   return {
     setSound(on) {
@@ -330,9 +343,17 @@ export function nadenken(st: Stage): Mashup {
         stepped = true;
         if (soundOn) tick(0.22, b % 2 === 1);
       }
-      // gewone tijd
+      // gewone tijd; de secondewijzer verspringt elke seconde, zonder geluid: het tikken is van je hart
       const now = new Date();
-      const sec = now.getSeconds() + now.getMilliseconds() / 1000;
+      const s = now.getSeconds();
+      if (s !== lastSec) {
+        lastSec = s;
+        secT = t;
+        stepped = true;
+      }
+      const sec = s + now.getMilliseconds() / 1000;
+      const ks = Math.min(1, (t - secT) / 0.18);
+      secHand.rotation.z = -((s - 1 + ease(ks)) / 60) * TAU;
       const min = (now.getMinutes() + sec / 60) / 60;
       const hr = ((now.getHours() % 12) + min) / 12;
       minHand.rotation.z = -min * TAU;
@@ -342,15 +363,17 @@ export function nadenken(st: Stage): Mashup {
       const over = Math.sin(Math.min(1, (t - beatT) / 0.6) * Math.PI) * 0.06 * (1 - k * 0.5);
       const heart = (b - 1 + ease(k)) / 60;
       beatHand.rotation.z = -heart * TAU - over * 0.02;
-      // slaan: de hartwijzer haalt de minuutwijzer in
+      // slaan: hartwijzer en secondewijzer staan op hetzelfde streepje. Daarna pas weer slaan als ze
+      // minstens vijf streepjes uit elkaar zijn geweest (lopen ze gelijk op, dan slaat hij maar één keer).
       if (stepped) {
-        const gap = wrap(b / 60 - min); // 0..1, hoe ver het hart vóór de tijd loopt
-        if (!Number.isNaN(prevGap) && prevGap > 0.9 && gap < 0.1 && t - strikeT > 8) {
+        const gap = (((b - s) % 60) + 60) % 60;
+        const dist = Math.min(gap, 60 - gap);
+        if (gap === 0 && armed) {
+          armed = false;
           strikes++;
           strikeT = t;
           if (soundOn) gong(0.55);
-        }
-        prevGap = gap;
+        } else if (dist >= 5) armed = true;
       }
       const glow = Math.exp(-(t - strikeT) * 0.9);
       capMat.emissiveIntensity = glow * 2.2;

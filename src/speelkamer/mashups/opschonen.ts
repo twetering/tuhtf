@@ -2,7 +2,7 @@
  * Opschonen: vaatwasser × defragmenteren.
  * Een open vaatwasser. De borden in het onderrek zijn de blokken van een harde schijf:
  * terracotta = gefragmenteerd, kobalt = op zijn plek, celadon = systeembestand (blijft staan).
- * Het bovenrek met kopjes is naar voren uitgetrokken. Bij elke hartslag zet de machine één bord
+ * In het bovenrek staan kopjes. Bij elke hartslag zet de machine één bord
  * op zijn plaats en geeft de sproeiarm een stoot. Is alles opgeruimd, dan spoelt hij even na,
  * en begint een nieuwe dag.
  */
@@ -38,8 +38,8 @@ function clink(vol = 0.05) {
 export function opschonen(st: Stage): Mashup {
   const S = st.scene;
   S.background = new THREE.Color(0x14110f);
-  st.rig.pos.set(0.3, 1.78, 1.12);
-  st.rig.target.set(0, 0.26, -0.14);
+  st.rig.pos.set(0.22, 1.02, 1.36);
+  st.rig.target.set(0, 0.3, -0.3);
   st.camera.fov = 33;
   st.scene.environmentIntensity = 0.45;
   st.finish.uniforms.warmth.value = 0.25;
@@ -81,7 +81,7 @@ export function opschonen(st: Stage): Mashup {
   // ---------------------------------------------------------------- vaatwasser
   const brushed = brushedTex(47, 512, true).tex;
   const steel = mat.steel(0.3, brushed);
-  const tub = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.72, 0.58), new THREE.MeshStandardMaterial({ color: 0xc9ccce, metalness: 1, roughness: 0.34, roughnessMap: brushed, side: THREE.BackSide }));
+  const tub = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.72, 0.58), new THREE.MeshStandardMaterial({ color: 0xb9bcbe, metalness: 1, roughness: 0.42, roughnessMap: brushed, envMapIntensity: 0.35, side: THREE.BackSide }));
   tub.position.set(0, 0.46, -0.29);
   S.add(tub);
   const lip = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.04, 0.03), steel);
@@ -108,8 +108,8 @@ export function opschonen(st: Stage): Mashup {
   const led = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.006, 0.012), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.6, 1.7, 1.9) }));
   led.position.set(0, 0.815, -0.04);
   S.add(led);
-  const inner = new THREE.PointLight(0xe8f2ff, 0.9, 1.4, 2);
-  inner.position.set(0, 0.74, -0.12);
+  const inner = new THREE.PointLight(0xe8f2ff, 0.12, 1.2, 2);
+  inner.position.set(0, 0.36, 0.02);
   inner.castShadow = true;
   inner.shadow.mapSize.set(1024, 1024);
   inner.shadow.radius = 5;
@@ -152,10 +152,10 @@ export function opschonen(st: Stage): Mashup {
       const z = slotZ(k) - 0.0205;
       for (const dx of [-0.05, 0.05]) lines.push(m4(new THREE.Vector3(cx + dx, 0.035, z), new THREE.Euler(0.18, 0, 0), 0.7));
     }
-  // bovenrek: naar voren uitgetrokken over de open deur, met kopjes ondersteboven
+  // bovenrek met kopjes ondersteboven, gewoon in de machine
   const up = new THREE.Group();
   const UX = 0.24, UZ = 0.2;
-  up.position.set(0, 0.44, 0.38);
+  up.position.set(0, 0.52, -0.3);
   S.add(up);
   const ul: THREE.Matrix4[] = [];
   for (let i = 0; i <= 10; i++) ul.push(m4(new THREE.Vector3(-UX + (i / 10) * 2 * UX, 0, 0), new THREE.Euler(Math.PI / 2, 0, 0), (2 * UZ) / 0.1));
@@ -174,10 +174,10 @@ export function opschonen(st: Stage): Mashup {
   const uInst = new THREE.InstancedMesh(wire(0.1), coat, ul.length);
   ul.forEach((m, i) => uInst.setMatrixAt(i, m));
   up.add(uInst);
-  // rails van het bovenrek, vanuit de kuip naar voren
+  // rails van het bovenrek
   for (const s2 of [-1, 1]) {
-    const rail = new THREE.Mesh(new RoundedBoxGeometry(0.012, 0.02, 0.92, 2, 0.003), mat.steel(0.25));
-    rail.position.set(s2 * (UX + 0.022), 0.45, 0.2);
+    const rail = new THREE.Mesh(new RoundedBoxGeometry(0.012, 0.02, 0.56, 2, 0.003), mat.steel(0.25));
+    rail.position.set(s2 * (UX + 0.022), 0.53, -0.3);
     S.add(rail);
     for (const z of [-0.12, 0.12]) {
       const w = new THREE.Mesh(new THREE.CylinderGeometry(0.011, 0.011, 0.008, 16), mat.plastic(0x3a3c40));
@@ -327,6 +327,7 @@ export function opschonen(st: Stage): Mashup {
   let soundOn = false;
   let tNow = 0;
   let spurt = 0;
+  let steamDue = false;
 
   const progress = () => {
     const good = plates.filter((p) => p.cat === 'ok' && T.has(p.slot) && !p.anim).length;
@@ -395,6 +396,7 @@ export function opschonen(st: Stage): Mashup {
         lastBeatT = t;
         step();
         spurt = 1;
+        if (b % 3 === 0) steamDue = true; // elke derde slag een wolkje stoom
       }
       spurt = Math.max(0, spurt - dt * 2.2);
       // borden in beweging
@@ -450,11 +452,12 @@ export function opschonen(st: Stage): Mashup {
         pPos[i * 3] += pVel[i * 3] * dt;
         pPos[i * 3 + 1] += pVel[i * 3 + 1] * dt;
         pPos[i * 3 + 2] += pVel[i * 3 + 2] * dt;
-        if (pPos[i * 3 + 1] < 0.11 || (pPos[i * 3 + 1] > 0.43 && pPos[i * 3 + 2] > 0.25)) pLife[i] = 0;
+        if (pPos[i * 3 + 1] < 0.11 || pPos[i * 3 + 1] > 0.51) pLife[i] = 0;
       }
       pGeo.attributes.position.needsUpdate = true;
       // stoom komt rustig naar buiten
-      if (Math.random() < dt * (0.9 + rinse * 0.6)) {
+      if (steamDue) {
+        steamDue = false;
         const s = steam.find((x) => !x.s.visible);
         if (s) {
           s.s.visible = true;
@@ -475,7 +478,7 @@ export function opschonen(st: Stage): Mashup {
         s.s.position.set(s.x + s.vx * s.age, lerp(0.55, 1.15, k), lerp(-0.08, 0.12, k));
         const sc = lerp(0.18, 0.55, k);
         s.s.scale.set(sc, sc, 1);
-        s.s.material.opacity = Math.sin(k * Math.PI) * 0.07;
+        s.s.material.opacity = Math.sin(k * Math.PI) * 0.035;
       }
       hum?.filter.frequency.setTargetAtTime(380 + lvl * 420 * rinse, audio().ctx.currentTime, 0.15);
     },
