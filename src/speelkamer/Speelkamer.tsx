@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { BodyHub } from './bodies';
+import { BodyHub, type Body } from './bodies';
 import Beweging from './Beweging';
 import Gesprek from './Gesprek';
 import IsDitMijnHart from './IsDitMijnHart';
@@ -7,7 +7,7 @@ import Gym from './Gym';
 import Machines from './Machines';
 import Meditaties from './Meditaties';
 import { setSoundOn, soundMuted, soundReady, unlock } from './sound';
-import { CSS, FONTS, InfoProvider, THEMES, sourceMark, themeVars } from './ui';
+import { CSS, FONTS, InfoProvider, THEMES, sourceMark, themeVars, useFrame } from './ui';
 import WiensKlok from './WiensKlok';
 import Zweving from './Zweving';
 
@@ -26,7 +26,7 @@ const NAV: { group: string; items: { key: Key; titel: string; sub: string }[] }[
   {
     group: 'alleen',
     items: [
-      { key: 'mijn', titel: 'Is dit mijn hart?', sub: 'Tellen, herkennen, raden: hoe goed voel je jezelf?' },
+      { key: 'mijn', titel: 'Is dit mijn hart?', sub: 'Tellen, herkennen, raden: hoe goed voel je jezelf? En hoe goed meet de meter?' },
       { key: 'machines', titel: 'Machine-meditaties', sub: 'Lummelen bij apparaten die op jouw lichaam lopen.' },
     ],
   },
@@ -90,8 +90,7 @@ export default function Speelkamer() {
   const addBand = async () => {
     setErr(null);
     try {
-      const name = window.prompt('Naam van de drager (optioneel)') ?? undefined;
-      await hub.connectBand(name || undefined);
+      await hub.connectBand((dev) => window.prompt(`Naam van de drager van ${dev ?? 'deze band'} (optioneel)`) || undefined);
     } catch (e) {
       if (e instanceof Error && e.name !== 'NotFoundError') setErr(e.message);
     }
@@ -252,6 +251,7 @@ function SpeakerIcon({ on }: { on: boolean }) {
 
 /** Lichamen als rij die per hartslag oplicht. */
 function BodyStrip({ hub }: { hub: BodyHub }) {
+  useFrame(2); // de getallen leven buiten React: zonder dit bleven ze hangen op de waarde van het moment van koppelen
   const dots = useRef<Record<string, HTMLSpanElement | null>>({});
   useEffect(() => {
     const off = hub.on((id, s) => {
@@ -265,14 +265,24 @@ function BodyStrip({ hub }: { hub: BodyHub }) {
   return (
     <div className="order-last basis-full sm:order-none sm:basis-auto flex-1 min-w-0 flex gap-1.5 overflow-x-auto scroll py-0.5">
       {hub.bodies.map((b) => (
-        <span key={b.id} className="chip shrink-0" title={b.source}>
+        <span key={b.id} className="chip shrink-0" title={chipTitle(b)} style={{ opacity: live(b) ? 1 : 0.45 }}>
           <span ref={(el) => { dots.current[b.id] = el; }} className="inline-block w-2 h-2 rounded-full opacity-70" style={{ background: `hsl(${b.hue} 80% 62%)` }} />
           {sourceMark(b)} {b.name}
-          <span className="mono text-[11px] tabular-nums text-ink">{b.hr ? Math.round(b.hr) : '–'}</span>
+          <span className="mono text-[11px] tabular-nums text-ink">{b.hr && live(b) ? Math.round(b.hr) : '–'}</span>
         </span>
       ))}
     </div>
   );
+}
+
+const live = (b: Body) => b.source === 'sim' || performance.now() - b.lastSeen < 5000;
+function chipTitle(b: Body) {
+  if (b.source === 'sim') return 'gesimuleerd lichaam';
+  const parts = [b.source === 'band' ? 'Bluetooth-band' : 'via kanaal'];
+  if (b.extra?.deviceName && b.extra.deviceName !== b.name) parts.push(b.extra.deviceName);
+  if (b.source === 'band') parts.push(b.extra?.rr ? 'met RR-intervallen (slag voor slag)' : 'alleen bpm, geen RR-intervallen');
+  if (!live(b)) parts.push('geen data sinds ' + Math.round((performance.now() - b.lastSeen) / 1000) + ' s');
+  return parts.join(' · ');
 }
 
 /**

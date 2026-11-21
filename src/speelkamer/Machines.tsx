@@ -109,7 +109,7 @@ export default function Machines({ hub }: { hub: BodyHub }) {
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="card overflow-hidden relative aspect-[16/10] bg-room flex items-center justify-center">
           {isMashup(machine) && (
-            <Mashup kind={machine} d={d} soundOn={soundOn} info={<><div className="text-[15px]">{T.titel} <span className="opacity-60">· {T.kort}</span></div><p className="opacity-85">{couple === 'eigen' ? 'In eigen tempo: de machine loopt op 60 tikken per minuut.' : T.spiegel}</p></>} />
+            <Mashup kind={machine} d={d} soundOn={soundOn} onStep={(dir) => setMachine(MASHUPS[(MASHUPS.indexOf(machine) + dir + MASHUPS.length) % MASHUPS.length])} info={<><div className="text-[15px]">{T.titel} <span className="opacity-60">· {T.kort}</span></div><p className="opacity-85">{couple === 'eigen' ? 'In eigen tempo: de machine loopt op 60 tikken per minuut.' : T.spiegel}</p></>} />
           )}
           {machine === 'klok' && <HartKlok beats={Math.floor(d.beat)} couple={useHeart ? 'hart' : 'eigen'} breaths={Math.floor(d.breath)} />}
           {machine === 'projectie' && <Projectie d={d} soundOn={soundOn} />}

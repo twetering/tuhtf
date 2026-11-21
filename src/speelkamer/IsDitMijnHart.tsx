@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { rateFrom, type BodyHub } from './bodies';
 import { MeSelect, pickMe } from './Me';
+import WelkeMeter from './WelkeMeter';
 import { heartbeat } from './sound';
 import { Big, Label, Seg, useEvents, useFrame, Uitleg } from './ui';
 
-type Task = 'tel' | 'herken' | 'raad';
+type Task = 'tel' | 'herken' | 'raad' | 'meters';
 type TrialKind = 'eigen' | 'sneller' | 'trager' | 'ander';
 type Trial = { kind: TrialKind; other?: string; answer?: boolean; sure?: number };
 
@@ -23,11 +24,11 @@ export default function IsDitMijnHart({ hub }: { hub: BodyHub }) {
   const pulse = Math.max(0, 1 - (performance.now() - lastBeat.current) / 250);
 
   return (
-    <div className="max-w-[980px]">
+    <div className={task === 'meters' ? 'max-w-[1250px]' : 'max-w-[980px]'}>
       <div className="flex flex-wrap items-center gap-4">
-        <Seg value={task} options={['tel', 'herken', 'raad'] as const} onChange={setTask} labels={{ tel: 'tel je hart', herken: 'is dit mijn hart?', raad: 'raad je hartslag' }} />
-        <MeSelect hub={hub} me={me} setMe={setMeId} />
-        {me.source === 'sim' && (
+        <Seg value={task} options={['tel', 'herken', 'raad', 'meters'] as const} onChange={setTask} labels={{ tel: 'tel je hart', herken: 'is dit mijn hart?', raad: 'raad je hartslag', meters: 'welke meter?' }} />
+        {task !== 'meters' && <MeSelect hub={hub} me={me} setMe={setMeId} />}
+        {task !== 'meters' && me.source === 'sim' && (
           <label className="text-[12px] text-ink-3 flex items-center gap-1.5">
             <input type="checkbox" checked={showPulse} onChange={(e) => setShowPulse(e.target.checked)} /> toon mijn pols (testhulp)
             {showPulse && <span className="inline-block w-3 h-3 rounded-full bg-hart" style={{ opacity: 0.2 + pulse * 0.8 }} />}
@@ -38,6 +39,7 @@ export default function IsDitMijnHart({ hub }: { hub: BodyHub }) {
         {task === 'tel' && <Tel hub={hub} meId={me.id} />}
         {task === 'herken' && <Herken hub={hub} meId={me.id} />}
         {task === 'raad' && <Raad hub={hub} meId={me.id} />}
+        {task === 'meters' && <WelkeMeter hub={hub} />}
       </div>
     </div>
   );

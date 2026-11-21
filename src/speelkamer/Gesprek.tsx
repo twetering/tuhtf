@@ -10,7 +10,7 @@ const PHASE_TXT: Record<Phase, string> = {
   stilte: 'Geen geluid. Alleen kijken.',
 };
 
-type Sample = { t: number; a: number; b: number; breath: number; phase: Phase };
+type Sample = { t: number; a: number; b: number; breath: number | null; phase: Phase };
 
 function corr(x: number[], y: number[]) {
   const n = Math.min(x.length, y.length);
@@ -86,8 +86,14 @@ export default function Gesprek({ hub }: { hub: BodyHub }) {
   useEffect(() => {
     if (!running || !A || !B) return;
     const id = window.setInterval(() => {
+      // een wegvaller (hr 0 of al seconden geen bericht) is geen meting: niet als duik naar 0 tekenen
+      const now = performance.now();
+      const ok = (x: Body) => x.hr > 0 && (x.source === 'sim' || now - x.lastSeen < 5000);
+      if (!ok(A) || !ok(B)) return;
+      // adem alleen vergelijken als beide lichamen echt adem meten (een losse hartslagband doet dat niet)
       const d = Math.abs(((A.acc.breathPhase - B.acc.breathPhase + 1.5) % 1) - 0.5);
-      setSamples((s) => [...s.slice(-1200), { t: performance.now(), a: A.hr, b: B.hr, breath: 1 - d * 2, phase }]);
+      const breath = A.acc.breathQ >= 0.35 && B.acc.breathQ >= 0.35 ? 1 - d * 2 : null;
+      setSamples((s) => [...s.slice(-1200), { t: now, a: A.hr, b: B.hr, breath, phase }]);
     }, 500);
     return () => clearInterval(id);
   }, [running, A, B, phase]);
@@ -97,14 +103,18 @@ export default function Gesprek({ hub }: { hub: BodyHub }) {
   const last = samples.slice(-120);
   const sync = corr(last.map((s) => s.a), last.map((s) => s.b));
   const gap = last.length ? last.reduce((s, x) => s + Math.abs(x.a - x.b), 0) / last.length : Math.abs(A.hr - B.hr);
-  const breath = last.length ? last.reduce((s, x) => s + x.breath, 0) / last.length : 0;
+const meanBreath = (ss: Sample[]) => {
+    const v = ss.filter((x) => x.breath !== null).map((x) => x.breath!);
+    return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
+  };
+  const breath = meanBreath(last);
   const per = (p: Phase) => {
     const ss = samples.filter((s) => s.phase === p);
     if (ss.length < 10) return null;
     return {
       sync: corr(ss.map((s) => s.a), ss.map((s) => s.b)),
       gap: ss.reduce((s, x) => s + Math.abs(x.a - x.b), 0) / ss.length,
-      breath: ss.reduce((s, x) => s + x.breath, 0) / ss.length,
+      breath: meanBreath(ss),
       hit: hits.current[p].n ? hits.current[p].hit / hits.current[p].n : 0,
       mins: (ss.length * 0.5) / 60,
     };
@@ -183,9 +193,9 @@ export default function Gesprek({ hub }: { hub: BodyHub }) {
           </div>
           <div>
             <Label>adem</Label>
-            <div className="serif text-[38px] leading-none">{Math.round(breath * 100)}%</div>
+            <div className="serif text-[38px] leading-none">{breath === null ? '—' : `${Math.round(breath * 100)}%`}</div>
           </div>
-          <Uitleg title="Maten"><p>Meebewegen = hoe gelijk de harten stijgen en dalen (−1..1, laatste minuut). Verschil = gemiddeld bpm uit elkaar. Adem = hoe gelijk jullie ademen.</p></Uitleg>
+          <Uitleg title="Maten"><p>Meebewegen = hoe gelijk de harten stijgen en dalen (−1..1, laatste minuut). Verschil = gemiddeld bpm uit elkaar. Adem = hoe gelijk jullie ademen; alleen als beide lichamen adem meten (een losse hartslagband doet dat niet, dan staat er —).</p></Uitleg>
         </div>
         <div className="card p-4">
           <Label>per fase</Label>
@@ -201,7 +211,7 @@ export default function Gesprek({ hub }: { hub: BodyHub }) {
                     <td className="py-1 text-ink-2">{p}</td>
                     <td>{r ? r.sync.toFixed(2) : '—'}</td>
                     <td>{r ? r.gap.toFixed(0) : '—'}</td>
-                    <td>{r ? `${Math.round(r.breath * 100)}%` : '—'}</td>
+                    <td>{r && r.breath !== null ? `${Math.round(r.breath * 100)}%` : '—'}</td>
                     <td>{r ? `${Math.round(r.hit * 100)}%` : '—'}</td>
                   </tr>
                 );

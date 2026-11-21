@@ -50,7 +50,7 @@ export type Body = {
   rrQueue: number[]; // ms, nog af te spelen RR-intervallen (band/kanaal)
   nextBeatAt: number;
   /** Wat het apparaat nog meer weet (M5Stick: gyro, batterij, knop; Garmin: loopsnelheid, paslengte). */
-  extra?: { device?: string; gyro?: number; bat?: number; btn?: number; speed?: number; stride?: number; rscCadence?: number; rr?: boolean };
+  extra?: { device?: string; deviceName?: string; gyro?: number; bat?: number; btn?: number; speed?: number; stride?: number; rscCadence?: number; rr?: boolean };
   nextStepAt?: number;
 };
 
@@ -263,11 +263,13 @@ export class BodyHub {
 
   // ------------------------------------------------------------------ echte band
   /** Verbind een hartslagband (en indien Polar H10: accelerometer). */
-  async connectBand(name?: string): Promise<Body | null> {
+  async connectBand(askName?: (deviceName?: string) => string | undefined): Promise<Body | null> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const bt = (navigator as any).bluetooth;
     if (!bt) throw new Error('Web Bluetooth werkt alleen in Chrome/Edge (op iPhone: Bluefy).');
+    // requestDevice moet direct in de klik gebeuren (Chrome geeft maar een paar seconden); de naam vragen we pas daarna
     const device = await bt.requestDevice({ filters: [{ services: ['heart_rate'] }], optionalServices: [PMD_SERVICE, 'running_speed_and_cadence'] });
+    const name = askName?.(device.name);
     const server = await device.gatt.connect();
     const body: Body = {
       id: `band-${device.id ?? Math.random().toString(36).slice(2, 7)}`,
@@ -284,6 +286,7 @@ export class BodyHub {
       breaths: [],
       rrQueue: [],
       nextBeatAt: 0,
+      extra: { deviceName: device.name },
     };
     this.bodies = [body, ...this.bodies.filter((b) => b.id !== body.id)];
     this.onChange?.();

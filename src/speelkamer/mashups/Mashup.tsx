@@ -11,15 +11,18 @@ const BUILD: Record<MashupKind, (st: Stage) => M> = { opwarmen, opschonen, naden
 
 /**
  * Eén 3D-mashup, aangedreven door de hartslag (Drive.beat). Adem stuurt niets aan; die wordt
- * alleen gemeten voor het experiment. Fullscreen via de knop of de f-toets, voor schermen in de expo.
+ * alleen gemeten voor het experiment. Fullscreen via de knop of de f-toets, voor schermen in de expo;
+ * daar bladeren pijltje links/rechts naar de vorige/volgende machine.
  * Toelichting staat achter het i-icoon, zodat het beeld zelf leeg blijft.
  */
-export default function Mashup({ kind, d, soundOn, info }: { kind: MashupKind; d: Drive; soundOn: boolean; info?: React.ReactNode }) {
+export default function Mashup({ kind, d, soundOn, info, onStep }: { kind: MashupKind; d: Drive; soundOn: boolean; info?: React.ReactNode; onStep?: (dir: 1 | -1) => void }) {
   const box = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLCanvasElement>(null);
   const dRef = useRef(d);
+  const stepRef = useRef(onStep);
   useLayoutEffect(() => {
     dRef.current = d;
+    stepRef.current = onStep;
   });
   const mRef = useRef<M | null>(null);
   const [status, setStatus] = useState('');
@@ -86,7 +89,13 @@ export default function Mashup({ kind, d, soundOn, info }: { kind: MashupKind; d
     const onFs = () => setFull(document.fullscreenElement === box.current);
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
-      if (e.key === 'f' && tag !== 'INPUT' && tag !== 'SELECT' && tag !== 'TEXTAREA') toggleFull();
+      if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+      if (e.key === 'f') toggleFull();
+      // in fullscreen: pijltjes bladeren door de machines, zonder zichtbare navigatie (handig bij demo's)
+      if (document.fullscreenElement === box.current && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+        e.preventDefault();
+        stepRef.current?.(e.key === 'ArrowRight' ? 1 : -1);
+      }
     };
     document.addEventListener('fullscreenchange', onFs);
     window.addEventListener('keydown', onKey);

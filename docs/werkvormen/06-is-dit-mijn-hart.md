@@ -18,7 +18,7 @@ Het werk maakt van jezelf herkennen een raadsel. Een spiegel toont je gezicht, e
 
 ## Werkvorm
 
-Drie taken. Doe ze in deze volgorde.
+Drie taken. Doe ze in deze volgorde. Daarna is er een vierde, over de meter zelf.
 
 **1. Raden.** "Hoe snel klopt je hart nu?" Gok, zonder te voelen. Doe het na elke andere oefening opnieuw. De app laat zien hoe ver je er gemiddeld naast zit.
 
@@ -31,15 +31,21 @@ Drie taken. Doe ze in deze volgorde.
 
 Met zekerheid zie je niet alleen hoe vaak je goed zat, maar ook of je weet wát je weet. Wie zeker is bij goede antwoorden en twijfelt bij foute, heeft een goed beeld van de eigen waarneming.
 
+**4. Welke meter?** Draag twee hartslagmeters tegelijk, bijvoorbeeld een horloge om je pols en een band om je borst. Kies ze als meter 1 en meter 2 en geef aan waar ze zitten. Meet een minuut stil, dan een minuut terwijl je beweegt. Daarna volgt een analyse in gewone zinnen, zoals "de polsmeter meet gemiddeld 3 slagen per minuut hoger dan de borstmeter". Je ziet ook hoe groot het verschil per moment is, hoe vaak ze het binnen 2 slagen eens waren, en of de ene meter achter de andere aan loopt. Zo wordt voelbaar dat je hartslag geen vast gegeven is: het getal hangt af van waar en hoe je meet.
+
+Let op bij Garmin: is de borstband ook aan je horloge gekoppeld, dan zendt het horloge de waarde van de borstband door. Je vergelijkt dan de band met zichzelf. De app waarschuwt als de twee lijnen vrijwel gelijk zijn en alleen verschoven. Ontkoppel de band dan van het horloge.
+
 ## Nabespreken
 
 - Zat je dichter bij je echte hartslag dan je dacht?
 - Wat voelde je bij het tellen: je hart, je pols in je vingers, of iets anders?
 - Bij herkennen: waar lette je op? Het tempo? De wisselingen?
 - Werd je beter na een paar keer? Of juist onzekerder?
+- Welke meter geloof je? En waarom eigenlijk?
 
 ## Voor onderzoekers
 
 - **Wat je meet:** drie bekende maten uit interoceptie-onderzoek. Raden is een schatting zonder waarneming. Tellen is de heartbeat counting task (Schandry). Herkennen lijkt op een discriminatietaak; met zekerheid krijg je ook een maat voor metacognitie (*interoceptive awareness*).
 - **Waarom zo getoetst:** een band meldt slagen met wat vertraging via Bluetooth. Daarom toetsen we niet of een klik precies op je slag valt, zoals in het lab. We toetsen of je je eigen tempo en wisselingen herkent.
+- **Meters vergelijken:** welke meter? gebruikt dezelfde maten als methodevergelijkingen in de medische wereld: gemiddeld verschil (bias) en 95%-grenzen van overeenstemming (Bland-Altman), plus de vertraging via kruiscorrelatie. Een borstband meet elektrisch (zoals een ECG), een horloge optisch (PPG) en middelt over een paar seconden.
 - **Let op:** de teltaak wordt bekritiseerd, omdat mensen ook schatten op basis van wat ze over hartslag weten. Mensen tellen meestal te weinig. Gebruik de uitkomsten als gespreksstof, niet als diagnose.

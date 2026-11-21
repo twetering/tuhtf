@@ -42,7 +42,7 @@ Het idee erachter: we wachten al een eeuw op machines. Eerst op de magnetron en 
 
 **Alleen de hartslag.** De mashups volgen alleen je hart: elke beweging, ook de langzame camera, loopt op je slagen. Dat is één helder ritme dat je kunt zien (een stap, een bord, een tik) en horen. Twee ritmes tegelijk maakt het beeld onrustig en de koppeling onduidelijk. De adem wordt wel gemeten. Zo laat het experiment zien of een machine die je hart spiegelt ook je ademhaling vertraagt, zonder dat ze die nadoet.
 
-**In de expo.** Elke mashup kan volledig scherm (de knop rechtsboven of de toets `f`). Na een paar seconden zonder beweging verdwijnen de knoppen en de cursor. De toelichting staat achter het i-icoon, zodat het beeld zelf leeg blijft.
+**In de expo.** Elke mashup kan volledig scherm (de knop rechtsboven of de toets `f`). Na een paar seconden zonder beweging verdwijnen de knoppen en de cursor. Met pijltje rechts en links blader je in volledig scherm naar de volgende of vorige machine, zonder zichtbare navigatie: handig bij demo's. De toelichting staat achter het i-icoon, zodat het beeld zelf leeg blijft.
 
 De code staat in `src/speelkamer/mashups/`. Alles is procedureel, zonder 3D-bestanden: een machine is een functie die een scène bouwt en per frame de hartslag krijgt. Een nieuwe mashup maak je door een bestand naast de andere te zetten.
 
