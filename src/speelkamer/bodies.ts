@@ -1,5 +1,5 @@
 /**
- * Lichamen voor de Speelkamer.
+ * Lichamen voor het Lummellab.
  * Een lichaam levert slagen (hart), stappen (pas) en ademhalingen (adem), plus
  * bewegingskenmerken uit een accelerometer. Bronnen:
  *  - sim: gesimuleerd lichaam (om alles zonder hardware te kunnen proberen)

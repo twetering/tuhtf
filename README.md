@@ -6,16 +6,16 @@ Een groot deel van wat we weten, weten we met ons lijf. Wie die kennis wil delen
 
 Deze repo bevat de prototypes. Een landingspagina linkt naar alle subprojecten:
 
-- **[Speelkamer](#de-speelkamer)** (`/app.html#speelkamer`): een webapp met korte werkvormen waarin deelnemers hartslagbanden en bewegingssensoren dragen, en hun lichaamssignalen horen, zien en met elkaar delen.
-- **[Dier nadoen](docs/werkvormen/09-dier-nadoen.md)** (`/dier-nadoen/`): beweeg als een dier en bouw samen een model dat raadt welk dier je bent. Deelnemers doorlopen de hele AI-keten.
-- **[Andere prototypes](docs/andere-prototypes.md):** zwermcanvas, huiskamer v1 en v2, tijdatlas.
+- **[Lummellab](#het-lummellab)** (`/app.html#lummellab`): een webapp met korte werkvormen waarin deelnemers hartslagbanden en bewegingssensoren dragen, en hun lichaamssignalen horen, zien en met elkaar delen.
+- **[B.I. lab](docs/body-intelligence/)** (`/body-intelligence/`): *als er A.I. is, waarom dan geen B.I.?* Een lab voor Body Intelligence. Deelnemers doen een dier, een machine of een klap na, en bouwen samen een model dat raadt wat ze doen. Ze doorlopen de hele AI-keten.
+- **[Andere prototypes](docs/andere-prototypes.md):** zwermcanvas, huiskamer, tijdatlas.
 
 ![De landingspagina](docs/img/landing.png)
 
-![De Speelkamer](docs/img/overzicht.png)
+![Het Lummellab](docs/img/overzicht.png)
 
 
-## De Speelkamer
+## Het Lummellab
 
 | | Werkvorm | | Kernvraag |
 |---|---|---|---|
@@ -30,18 +30,24 @@ Deze repo bevat de prototypes. Een landingspagina linkt naar alle subprojecten:
 
 Alles werkt ook zonder sensoren: de app vult aan met gesimuleerde lichamen.
 
-## Dier nadoen
+## B.I. · Body Intelligence
 
-[Dier nadoen](docs/werkvormen/09-dier-nadoen.md) is een los subproject in [`dier-nadoen/`](dier-nadoen/). Deelnemers dragen een M5Stick of gebruiken hun telefoon, en doen een kikker, vogel, slang of paard na. In zes stappen bouwen ze samen een model: datamodel, verzamelen, labelen, ordenen, trainen en raden. Daarna proberen ze het model te foppen. De kernvraag: kan een mens een dier echt nadoen, en wat leert een machine daarvan?
+Een onderzoekslijn met choreograaf Katja Heitmann. Stel dat er een model van belichaamde kennis bestaat: hoe zou dat eruitzien? We gebruiken de manier waarop A.I. getraind wordt als inspiratiemodel, en zoeken uit waar die logica níét werkt voor een lichaam.
 
-![Dier nadoen](docs/img/dier-raden.png)
+- **[B.I. ontwikkelen](docs/body-intelligence/bi-ontwikkelen.md):** de A.I.-keten als inspiratiemodel, wat we kunnen vastleggen (met en zonder sensoren), waar het schuurt, en de route naar 8 december en MU.
+- **[Ingangen](docs/body-intelligence/ingangen.md):** bewegingen die tegelijk lichamelijk, emotioneel, situationeel en metaforisch zijn, van een klap in het gezicht tot opstaan.
+- **[Het B.I.-lab](docs/body-intelligence/andere-lichamen.md)** in [`body-intelligence/`](body-intelligence/), met sets voor dieren, machines, een klap en een eigen set. Elke set doorloopt de zes stappen: datamodel, verzamelen, labelen, ordenen, trainen en raden. Daarna proberen deelnemers het model te foppen.
+- **[Logboek](docs/body-intelligence/logboek.md):** het onderzoeksproces zelf.
+
+![B.I. lab](docs/img/bi-lab.png)
 
 ## Documentatie
 
 - **[Over TUHTF](docs/over-tuhtf.md):** de onderzoeksvraag, zes deelvragen, lummelen, de AI-keten.
 - **[Handleiding voor docenten en onderzoekers](docs/handleiding-docenten.md):** voorbereiden, opstelling, voorbeeldprogramma's, zorgvuldig omgaan met data, problemen oplossen.
-- **[Werkvormen](docs/werkvormen/)**, inclusief [Dier nadoen](docs/werkvormen/09-dier-nadoen.md): per werkvorm de thematische inbedding, een artistiek statement, stappen, varianten, nabespreekvragen en aanwijzingen voor onderzoek.
+- **[Werkvormen](docs/werkvormen/):** per werkvorm de thematische inbedding, een artistiek statement, stappen, varianten, nabespreekvragen en aanwijzingen voor onderzoek.
 - **[Hardware](docs/hardware.md):** hartslagbanden, M5StickC Plus2, telefoon als zender, draagplekken.
+- **[B.I. · Body Intelligence](docs/body-intelligence/):** denkstuk, ingangen, het lab en het logboek.
 - **[Techniek](docs/techniek.md):** code, structuur, stemmen opnieuw maken, een werkvorm toevoegen.
 - **[Andere prototypes](docs/andere-prototypes.md):** zwermcanvas, huiskamer, tijdatlas.
 
@@ -52,4 +58,4 @@ npm install
 npm run dev
 ```
 
-Open daarna http://localhost:5173 in Chrome of Edge. Dat is de landingspagina met alle subprojecten. Oude links zoals `…/#speelkamer` worden doorgestuurd naar `/app.html#speelkamer`. Voor de zwermcanvas en de huiskamer-prototypes heb je API-sleutels nodig: kopieer `.env.example` naar `.env`. Zie [techniek](docs/techniek.md).
+Open daarna http://localhost:5173 in Chrome of Edge. Dat is de landingspagina met alle subprojecten. Oude links zoals `…/#speelkamer` worden doorgestuurd naar `/app.html#lummellab`. Voor de zwermcanvas en de huiskamer-prototypes heb je API-sleutels nodig: kopieer `.env.example` naar `.env`. Zie [techniek](docs/techniek.md).

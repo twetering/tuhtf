@@ -11,8 +11,8 @@ Elke pagina heeft dezelfde opbouw: thematische inbedding, artistiek statement, w
 7. [Machine-meditaties](07-machine-meditaties.md): tien machines, in eigen tempo of op jouw lichaam, met een experiment.
 8. [AI-meditaties](08-ai-meditaties.md): drie vaste meditaties en een live-meditatie die op je lichaam reageert.
 
-Los subproject, buiten de Speelkamer:
+Los subproject, buiten het Lummellab:
 
-9. [Dier nadoen](09-dier-nadoen.md): beweeg als een dier, bouw samen een model dat raadt welk dier je bent, en fop het. De hele AI-keten in één werkvorm.
+9. [Andere lichamen](../body-intelligence/andere-lichamen.md) in het [B.I.-lab](../body-intelligence/): doe een dier, een machine of een klap na, bouw samen een model dat raadt wat je doet, en fop het. De hele AI-keten in één werkvorm.
 
 Zie [over TUHTF](../over-tuhtf.md) voor de deelvragen, en de [handleiding](../handleiding-docenten.md) voor het geven van een sessie.

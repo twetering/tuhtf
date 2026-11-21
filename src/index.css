@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Speelkamer: kleurtokens volgen de kamer (CSS-variabelen op .sk) */
+/* Lummellab: kleurtokens volgen de kamer (CSS-variabelen op .sk) */
 @theme inline {
   --color-ink: var(--sk-ink);
   --color-ink-2: var(--sk-ink-2);

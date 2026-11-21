@@ -1,8 +1,8 @@
 # Handleiding voor docenten en onderzoekers
 
-Deze handleiding is voor wie een sessie met de Speelkamer gaat geven: aan studenten, in een workshop of op een onderzoeksdag. Je hoeft niet te programmeren. Wel moet je een uur nemen om de opstelling vooraf één keer zelf te doorlopen.
+Deze handleiding is voor wie een sessie met het Lummellab gaat geven: aan studenten, in een workshop of op een onderzoeksdag. Je hoeft niet te programmeren. Wel moet je een uur nemen om de opstelling vooraf één keer zelf te doorlopen.
 
-- [Wat de Speelkamer is](#wat-de-speelkamer-is)
+- [Wat het Lummellab is](#wat-het-lummellab-is)
 - [Wat je nodig hebt](#wat-je-nodig-hebt)
 - [Voorbereiden](#voorbereiden)
 - [De opstelling in de ruimte](#de-opstelling-in-de-ruimte)
@@ -11,9 +11,9 @@ Deze handleiding is voor wie een sessie met de Speelkamer gaat geven: aan studen
 - [Zorgvuldig omgaan met lichaamsdata](#zorgvuldig-omgaan-met-lichaamsdata)
 - [Als het niet werkt](#als-het-niet-werkt)
 
-## Wat de Speelkamer is
+## Wat het Lummellab is
 
-De Speelkamer is een webapp met korte werkvormen over lichaamssignalen: hartslag, adem, beweging en houding. Deelnemers dragen een hartslagband of bewegingssensor. De app maakt die signalen hoorbaar en zichtbaar, en zet ze in een spel, een meditatie of een klein experiment.
+Het Lummellab is een webapp met korte werkvormen over lichaamssignalen: hartslag, adem, beweging en houding. Deelnemers dragen een hartslagband of bewegingssensor. De app maakt die signalen hoorbaar en zichtbaar, en zet ze in een spel, een meditatie of een klein experiment.
 
 Links in de app staan de werkvormen in vier groepen:
 
@@ -38,7 +38,7 @@ Alles werkt ook **zonder sensoren**. De app vult dan aan met gesimuleerde licham
 **Minimaal**
 - Een laptop met **Chrome of Edge**. Web Bluetooth werkt niet in Safari en Firefox.
 - Speakers, of een koptelefoon met splitter voor de werkvormen met twee personen.
-- De Speelkamer: de gedeployde versie, of lokaal gestart (zie [techniek](techniek.md)). Adres: `…/app.html#speelkamer`, of kies de Speelkamer op de landingspagina.
+- Het Lummellab: de gedeployde versie, of lokaal gestart (zie [techniek](techniek.md)). Adres: `…/app.html#lummellab`, of kies het Lummellab op de landingspagina.
 
 **Voor echte lichaamsdata**
 - **Hartslagbanden** met Bluetooth die het standaard hartslagprofiel spreken. Getest: Polar H10 en Garmin HRM-Pro Plus. De meeste borstbanden van €30 tot €90 werken. Polsbandjes en horloges meestal niet, of alleen in een speciale uitzendmodus.
@@ -57,7 +57,7 @@ Zie [hardware](hardware.md) voor details over koppelen, draagplekken en aantalle
 ## Voorbereiden
 
 Een week van tevoren:
-1. Open de Speelkamer en klik door alle werkvormen die je wilt gebruiken. Doe het met gesimuleerde lichamen. Het tandwiel ⚙ rechtsboven regelt hoeveel.
+1. Open het Lummellab en klik door alle werkvormen die je wilt gebruiken. Doe het met gesimuleerde lichamen. Het tandwiel ⚙ rechtsboven regelt hoeveel.
 2. Lees per werkvorm de pagina in deze map. De ⓘ naast de titel in de app geeft de korte versie.
 3. Laad de banden en sticks op. Een M5Stick gaat een paar uur mee met het scherm uit.
 
@@ -128,7 +128,7 @@ Hartslag en adem zijn gezondheidsgegevens. Neem dat serieus, ook in een spel.
 
 - **Vrijwilligheid.** Niemand hoeft een band te dragen. Een gesimuleerd lichaam doet gewoon mee.
 - **Geen echte namen nodig.** Gebruik voornamen, kleuren of nummers.
-- **Wat er bewaard wordt.** De Speelkamer heeft geen eigen database. Alles draait in de browser. Een paar dingen bewaart de browser lokaal: het gekozen kanaal, de kalibratie van een stick, en de uitkomsten van het machine-experiment. Wis die via de knoppen in de app of door de browsergegevens van de site te wissen.
+- **Wat er bewaard wordt.** Het Lummellab heeft geen eigen database. Alles draait in de browser. Een paar dingen bewaart de browser lokaal: het gekozen kanaal, de kalibratie van een stick, en de uitkomsten van het machine-experiment. Wis die via de knoppen in de app of door de browsergegevens van de site te wissen.
 - **Wat er over het netwerk gaat.** Telefoons en sticks sturen hun data via een **openbare MQTT-server** (HiveMQ) naar het kanaal. Iedereen die de kanaalcode kent, kan meekijken. Gebruik daarom een niet te raden code, en geen namen of andere persoonsgegevens. Banden die direct via Bluetooth aan de laptop hangen, gaan niet over internet.
 - **Onthullen.** Bij werkvormen met een verborgen element, zoals verstoppen in *Wiens klok?*, hoort het onthullen achteraf bij het werk. Laat iedereen zien wat er gebeurde.
 - **Gezondheid.** De app is geen medisch instrument. Bij *Gym: Herstelslag* gaat de hartslag flink omhoog. Vraag vooraf of iemand hartklachten heeft, en laat mensen in hun eigen tempo meedoen. Hartslagwaarden zeggen niets over hoe gezond iemand is. Vergelijk mensen daar niet op.

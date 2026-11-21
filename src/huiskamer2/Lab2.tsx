@@ -20,7 +20,7 @@ import {
   type Source,
   type Wall,
 } from '../../lib/huiskamer2Types';
-import { HuiskamerAudio } from '../huiskamer/audio';
+import { HuiskamerAudio } from './audio';
 import { EarMonitor } from './ear';
 import Room3D, { type RoomView } from './Room3D';
 import { DEVICE_POS, PHASE_INFO, SOUND_IMPULSE, Sim2, earActive, thermostat2, type Person2 } from './sim2';

@@ -115,7 +115,7 @@ export function Zender() {
   );
 }
 
-/** Klokscherm voor in de ruimte: tikt het hart, de pas of de adem van wie de Speelkamer aanwijst. */
+/** Klokscherm voor in de ruimte: tikt het hart, de pas of de adem van wie het Lummellab aanwijst. */
 export function KlokScherm() {
   useFonts();
   const params = hashParams();

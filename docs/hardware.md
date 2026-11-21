@@ -12,11 +12,11 @@ Welke sensoren werken, hoe je ze koppelt en waar je ze draagt.
 | **M5StickC Plus2** met onze firmware | versnelling en draaisnelheid, 50 keer per seconde; daaruit pas, houding, adem, sprongen, draaien, onrust | wifi → kanaal | ca. €25 |
 | **Telefoon** als zender | eigen bewegingssensor; kan ook een band uitlezen en doorsturen | wifi of 4G → kanaal | — |
 
-In de bovenbalk van de Speelkamer zie je per lichaam waar de data vandaan komt: ▣ voor een M5Stick, ♥↯ voor een band met loopdata.
+In de bovenbalk van het Lummellab zie je per lichaam waar de data vandaan komt: ▣ voor een M5Stick, ♥↯ voor een band met loopdata.
 
 ## Hartslagbanden
 
-**Koppelen.** In de Speelkamer: ⚙ → "＋ hartslagband verbinden". Kies de band in het venster van de browser. Dat werkt alleen in **Chrome of Edge** op een laptop (Mac, Windows, Linux) of Android. Safari en Firefox ondersteunen geen Web Bluetooth.
+**Koppelen.** In het Lummellab: ⚙ → "＋ hartslagband verbinden". Kies de band in het venster van de browser. Dat werkt alleen in **Chrome of Edge** op een laptop (Mac, Windows, Linux) of Android. Safari en Firefox ondersteunen geen Web Bluetooth.
 
 **Aantallen.** Eén laptop kan in de praktijk vijf tot zeven banden tegelijk aan. Wil je er meer, zet dan telefoons in als zender (elke telefoon leest één band uit en stuurt hem via het kanaal door) of gebruik een tweede laptop op hetzelfde kanaal.
 
@@ -27,14 +27,14 @@ In de bovenbalk van de Speelkamer zie je per lichaam waar de data vandaan komt: 
 
 ## M5StickC Plus2
 
-Een klein apparaatje met scherm, batterij, wifi en een bewegingssensor. Met onze firmware stuurt het zijn bewegingsdata naar het Speelkamer-kanaal.
+Een klein apparaatje met scherm, batterij, wifi en een bewegingssensor. Met onze firmware stuurt het zijn bewegingsdata naar het Lummellab-kanaal.
 
 **Instellen en flashen:** zie [`firmware/README.md`](../firmware/README.md). Kort:
 1. Zet in `.env` in de hoofdmap: `WIFI_SSID`, `WIFI_PASS` en eventueel `M5_KANAAL`.
 2. Installeer PlatformIO (`uv tool install platformio`, of via pip).
 3. `cd firmware && pio run -t upload` met de stick via USB-C aangesloten.
 
-Wil je het kanaal per sessie wisselen zonder opnieuw te flashen? Kies dan in de Speelkamer het kanaal dat in de stick staat.
+Wil je het kanaal per sessie wisselen zonder opnieuw te flashen? Kies dan in het Lummellab het kanaal dat in de stick staat.
 
 **Bediening**
 - Knop A (voorkant): kort indrukken is een tik, lang indrukken wisselt de naam.
@@ -62,10 +62,10 @@ De pagina moet via **https** openen; anders geven telefoons geen toegang tot bew
 | **Hoofd** | knikken, kijkrichting, balans | adem |
 | **In de hand** | spel (Koekoek), gebaren | bijna al het andere |
 
-De Speelkamer laat per draagplek zien wat je er redelijkerwijs kunt meten (*Beweging → sensor & kalibratie*). Kalibreer na het bevestigen altijd even: drie seconden stilleggen, één keer rechtop staan.
+Het Lummellab laat per draagplek zien wat je er redelijkerwijs kunt meten (*Beweging → sensor & kalibratie*). Kalibreer na het bevestigen altijd even: drie seconden stilleggen, één keer rechtop staan.
 
 ## Het kanaal
 
-Telefoons en sticks sturen hun data via MQTT naar een openbare server (HiveMQ). De Speelkamer op de laptop luistert op hetzelfde kanaal. Het kanaal is gewoon een code, zoals `huiskamer-hku1`. Iedereen met die code kan meelezen, dus kies een code die niet te raden is. Er gaan geen namen mee, alleen de naam die je zelf aan een stick of telefoon geeft.
+Telefoons en sticks sturen hun data via MQTT naar een openbare server (HiveMQ). Het Lummellab op de laptop luistert op hetzelfde kanaal. Het kanaal is gewoon een code, zoals `huiskamer-hku1`. Iedereen met die code kan meelezen, dus kies een code die niet te raden is. Er gaan geen namen mee, alleen de naam die je zelf aan een stick of telefoon geeft.
 
 Wil je de data niet over internet sturen, gebruik dan alleen banden die direct via Bluetooth aan de laptop hangen.

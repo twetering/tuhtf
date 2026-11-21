@@ -124,7 +124,7 @@ export default function Machines({ hub }: { hub: BodyHub }) {
         <p>Het experiment speelt dezelfde machine twee keer af, in willekeurige volgorde: één keer in eigen tempo, één keer spiegelend op hart en adem. Steeds wordt gemeten hoeveel je hartslag en ademtempo daalden (laatste 30 s tegenover eerste 30 s). De uitkomsten worden bewaard, zodat je over meerdere mensen en machines kunt vergelijken.</p>
       </Uitleg>
       <Uitleg title="Bronnen">
-        <p>Hartslag komt van een band, adem van een bewegingssensor op borst of buik (M5Stick, Polar H10). Dat mogen twee verschillende apparaten zijn. Zonder echte sensoren gebruikt de Speelkamer een gesimuleerde ‘jij’, die je met de knoppen rechts kunt laten ontspannen.</p>
+        <p>Hartslag komt van een band, adem van een bewegingssensor op borst of buik (M5Stick, Polar H10). Dat mogen twee verschillende apparaten zijn. Zonder echte sensoren gebruikt het Lummellab een gesimuleerde ‘jij’, die je met de knoppen rechts kunt laten ontspannen.</p>
       </Uitleg>
     </div>
   );

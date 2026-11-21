@@ -1,19 +1,38 @@
-# Dier nadoen
+# Andere lichamen (B.I.-lab)
 
-*Beweeg als een kikker, vogel, slang of paard. Bouw samen een model dat raadt welk dier je bent. Probeer het daarna te foppen.*
+*Doe een dier, een machine of een klap na. Bouw samen een model dat raadt wat je doet. Probeer het daarna te foppen.*
 
 **Groep** 4 tot 30, in groepjes van 3 à 4 · **Duur** 60 tot 120 minuten · **Sensoren** een M5Stick per groepje, of de telefoon van een deelnemer; zonder sensoren werkt de simulatie · **Deelvraag** [2](../over-tuhtf.md#zes-deelvragen) en [3](../over-tuhtf.md#zes-deelvragen), en de hele [AI-keten](../over-tuhtf.md#de-ai-keten-als-werkmateriaal)
 
-Dier nadoen is een los subproject met een eigen pagina, buiten de Speelkamer: `…/dier-nadoen/`. Je vindt het ook via de landingspagina.
+Dit is de eerste werkvorm in het [B.I.-lab](README.md), een los subproject buiten het Lummellab: `…/body-intelligence/`. Je vindt het ook via de landingspagina. Het oude adres `…/dier-nadoen/` stuurt door.
 
-![Dier nadoen: raden](../img/dier-raden.png)
-*Stap 6: de gesimuleerde leerling doet een kikker na, en het model weet het zeker. Rechts staan de voorbeelden waar de beweging het meest op lijkt.*
+![B.I.-lab: raden](../img/bi-raden.png)
+*Stap 6: de gesimuleerde deelnemer doet een kikker na, en het model weet het zeker. Rechts staan de voorbeelden waar de beweging het meest op lijkt.*
+
+## Sets
+
+Elke set is een andere vraag aan het lichaam, met dezelfde zes stappen.
+
+| Set | Vraag | Categorieën |
+|---|---|---|
+| **Dieren** | Kan een mens een dier nadoen? | kikker, vogel, slang, paard |
+| **Machines** | Hoe is het om een machine te zijn? | klok, wasmachine, ruitenwisser, ventilator |
+| **Een klap** | Zit de bedoeling in de beweging? | grapje, woedend, gespeeld, aarzelend |
+| **Eigen set** | Wat wil jij een model leren? | zelf kiezen, bijvoorbeeld leiden en volgen, of een hand geven op vier manieren (zie [ingangen](ingangen.md)) |
+
+Elke set bewaart zijn eigen opnames. Categorieën kun je per set toevoegen en weghalen. Voor alle twaalf voorgestelde categorieën is er een simulatie. Bij zelfbedachte categorieën maakt de simulatie een willekeurige, maar per naam vaste beweging.
+
+**Machines.** Niet machines die op mensen gaan lijken, maar mensen die op machines gaan lijken. Tik als een klok met je arm als slinger, draai als een trommel, veeg als een ruitenwisser, zwaai en zoem als een ventilator. Hoe regelmatig kan een mens worden? En hoe voelt dat? Zie ook [andere intelligenties](bi-ontwikkelen.md#andere-intelligenties).
+
+**Een klap.** Dezelfde beweging met vier bedoelingen. Sla nooit op een lichaam: sla in de lucht, op een kussen of op een opgehouden hand. In de simulatie haalt het model "grapje" en "gespeeld" vaak door elkaar. Zit het verschil in de beweging, of alleen in de situatie?
 
 ## Thematische inbedding
 
+*Deze tekst gaat over de set dieren. Voor machines en de klap: zie hierboven en [B.I. ontwikkelen](bi-ontwikkelen.md).*
+
 Een kind weet hoe een kikker beweegt. Het hurkt, zet af en landt. Niemand heeft het dat uitgelegd. Het is belichaamde kennis, en die is opgedaan door te kijken naar een ander lichaam, met een ander skelet, andere spieren en een ander zwaartepunt. Toch kunnen we het nadoen. Of denken we dat alleen?
 
-Dier nadoen gaat over twee vertalingen tegelijk. De eerste is van dier naar mens: hoeveel kun je van een slang overnemen als je geen slang bent? Dat is het membraan van [deelvraag 3](../over-tuhtf.md#zes-deelvragen), maar dan tussen soorten. De tweede is van mens naar machine: wat blijft er van jouw slang over als hij door een sensor gaat? Dat is [deelvraag 2](../over-tuhtf.md#zes-deelvragen). Wat de sensor van een slang ziet, is een paar getallen per seconde: hoe hard, hoe snel, hoe schuin, hoeveel draaiing.
+Dieren nadoen gaat over twee vertalingen tegelijk. De eerste is van dier naar mens: hoeveel kun je van een slang overnemen als je geen slang bent? Dat is het membraan van [deelvraag 3](../over-tuhtf.md#zes-deelvragen), maar dan tussen soorten. De tweede is van mens naar machine: wat blijft er van jouw slang over als hij door een sensor gaat? Dat is [deelvraag 2](../over-tuhtf.md#zes-deelvragen). Wat de sensor van een slang ziet, is een paar getallen per seconde: hoe hard, hoe snel, hoe schuin, hoeveel draaiing.
 
 Het is ook de enige werkvorm waarin deelnemers **de hele AI-keten** zelf doorlopen. Ze bedenken een datamodel, verzamelen data, labelen, ordenen, trainen een model en spelen ermee. Elke stap is een keuze die het model vormt. Juist het foppen aan het eind laat zien wat het model echt heeft geleerd. Dat is meestal iets anders dan "kikker".
 
@@ -25,11 +44,11 @@ Het werk stelt een eenvoudige vraag met een ongemakkelijk antwoord: wie bepaalt 
 
 ## De app: zes stappen
 
-De app volgt de AI-keten. Bovenin kies je de bron. **M5Stick** gebruikt het MQTT-kanaal van de Speelkamer: vul dezelfde kanaalcode in als in de stick. **Deze telefoon** gebruikt de bewegingssensor van het apparaat zelf, en werkt alleen via https. **Simulatie** is een gesimuleerde leerling met de sensor om de pols. Rechtsboven loopt het signaal live mee: groen is de versnelling, blauw de draaiing.
+De app volgt de AI-keten. Bovenin kies je de bron. **M5Stick** gebruikt het MQTT-kanaal van het Lummellab: vul dezelfde kanaalcode in als in de stick. **Deze telefoon** gebruikt de bewegingssensor van het apparaat zelf, en werkt alleen via https. **Simulatie** is een gesimuleerde deelnemer met de sensor om de pols. Rechtsboven loopt het signaal live mee: groen is de versnelling, blauw de draaiing.
 
 ### 1 · Datamodel: wat meet je?
 
-![Datamodel](../img/dier-datamodel.png)
+![Datamodel](../img/bi-datamodel.png)
 
 Spreek samen drie dingen af.
 - **Welke dieren.** Standaard kikker, vogel, slang en paard, maar je kunt dieren toevoegen en weghalen.
@@ -40,16 +59,18 @@ Begin zonder app. Laat groepjes eerst op papier bedenken wat een kikker van een 
 
 ### 2 · Verzamelen: opnemen
 
-![Verzamelen](../img/dier-verzamelen.png)
+![Verzamelen](../img/bi-verzamelen.png)
 *Een opname loopt: drie seconden aftellen, dan tien seconden vogel.*
 
 Kies een dier, vul in wie het doet en druk op opnemen. Na drie seconden aftellen neemt de app 10 seconden op (instelbaar van 5 tot 30). Neem elk dier een paar keer op, met zoveel mogelijk verschillende mensen. Een opname van 10 seconden levert negen voorbeelden van twee seconden op.
 
-Geen sensoren? Kies *simulatie* en druk op **maak een demo-dataset**. Dan doen drie gesimuleerde leerlingen elk dier 12 seconden na.
+Na elke opname vraagt het lab **hoe het voelde**: een woord of zin, en een schuif van gespeeld naar echt. Dat komt mee in de dataset en staat in de lijst bij labelen. Zo ligt naast wat de sensor mat ook wat de beweger ervoer.
+
+Geen sensoren? Kies *simulatie* en druk op **maak een demo-dataset**. Dan doen drie gesimuleerde deelnemers elke categorie 12 seconden na.
 
 ### 3 · Labelen: nakijken
 
-![Labelen](../img/dier-labelen.png)
+![Labelen](../img/bi-labelen.png)
 
 Elke opname staat in een lijst, met een lijntje van de beweging. Je kunt het label veranderen of de opname weggooien. Een vlak lijntje betekent dat de sensor niet aanstond. Een kikker zonder sprongen is misschien per ongeluk een slang.
 
@@ -57,14 +78,14 @@ Hier kun je ook **de dataset downloaden** en **datasets samenvoegen**. Zo kan el
 
 ### 4 · Ordenen: bekijken
 
-![Ordenen](../img/dier-ordenen.png)
+![Ordenen](../img/bi-ordenen.png)
 *Intensiteit tegen ritme. De slang ligt apart; kikker, vogel en paard liggen dichter bij elkaar.*
 
 Elk puntje is twee seconden beweging. Kies twee kenmerken en kijk of de dieren uit elkaar liggen. De tabel ernaast toont per dier het gemiddelde van elk kenmerk. Laat de groep zoeken naar het kenmerk dat het meest vertelt.
 
 ### 5 · Trainen: model bouwen
 
-![Trainen](../img/dier-trainen.png)
+![Trainen](../img/bi-trainen.png)
 
 Het model is bewust eenvoudig: **k dichtstbijzijnde buren**. Het onthoudt alle voorbeelden. Bij een nieuwe beweging zoekt het de *k* voorbeelden die er het meest op lijken, en die stemmen over het dier. Je kunt *k* instellen met een schuif.
 
@@ -78,7 +99,7 @@ De tabel *wat werd waarvoor aangezien?* laat zien welke dieren door elkaar worde
 
 Beweeg, en het model raadt live welk dier je bent, met de zekerheid per dier. Is het model minder dan 50% zeker, dan toont het 🤔. Daaronder staan de vijf voorbeelden waar je beweging het meest op lijkt: "kikker van Anouk". Zo zie je waaróm het model iets raadt.
 
-In de simulatie kies je wat de gesimuleerde leerling nu doet. Met **nieuwe onbekende leerling** test je of het model ook iemand herkent die het nooit zag.
+In de simulatie kies je wat de gesimuleerde deelnemer nu doet. Met **nieuwe onbekende deelnemer** test je of het model ook iemand herkent die het nooit zag.
 
 ## Werkvorm
 
@@ -125,5 +146,5 @@ Mesh2Motion maakt zelf geen 3D-model van een foto. Daarvoor heb je eerst een ima
 - **Wat je meet:** per opname de ruwe versnelling (mg) en draaisnelheid (°/s), met label, persoon, draagplek en bron. De downloadbare JSON bevat alles, dus je kunt later andere kenmerken of modellen proberen.
 - **Model:** kNN op gestandaardiseerde kenmerken, met afstandsgewogen stemmen. Er draait geen neuraal netwerk, alles gebeurt in de browser en er gaat niets naar een server. Dat is een bewuste keuze. Het model is volledig uit te leggen, en de dichtstbijzijnde voorbeelden zijn altijd te tonen.
 - **Toetsen:** leave-one-person-out bij meerdere personen, anders leave-one-recording-out. Vensters uit dezelfde opname lijken sterk op elkaar. Een willekeurige verdeling van vensters zou daardoor een te mooie score geven.
-- **Simulatie:** de gesimuleerde dieren zijn zo gemaakt dat ze te onderscheiden zijn. Op de demo-dataset haalt het model al snel meer dan 90%. Echte leerlingen zijn rommeliger, en dat is precies het gesprek.
-- **Let op:** het MQTT-kanaal is openbaar, net als in de Speelkamer. Opnames staan in de browser (localStorage) tot je ze wist. Gebruik codes of voornamen in plaats van volledige namen. Zie [zorgvuldig omgaan met data](../handleiding-docenten.md#zorgvuldig-omgaan-met-lichaamsdata).
+- **Simulatie:** de gesimuleerde dieren en machines zijn zo gemaakt dat ze te onderscheiden zijn. Op de demo-dataset haalt het model al snel meer dan 90%. Bij de klap ligt dat rond 80%. Echte deelnemers zijn rommeliger, en dat is precies het gesprek.
+- **Let op:** het MQTT-kanaal is openbaar, net als in het Lummellab. Opnames staan in de browser (localStorage) tot je ze wist. Gebruik codes of voornamen in plaats van volledige namen. Zie [zorgvuldig omgaan met data](../handleiding-docenten.md#zorgvuldig-omgaan-met-lichaamsdata).

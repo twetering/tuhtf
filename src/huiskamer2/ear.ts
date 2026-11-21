@@ -4,7 +4,7 @@
  * gedempt mee, zoals door een transparante koptelefoon.
  */
 import type { Ear } from '../../lib/huiskamer2Types';
-import type { HuiskamerAudio } from '../huiskamer/audio';
+import type { HuiskamerAudio } from './audio';
 
 export class EarMonitor {
   private a: HuiskamerAudio;

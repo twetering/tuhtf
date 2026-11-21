@@ -35,6 +35,9 @@
       .card:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-2px); }
       .card.main { background: var(--acc); color: var(--acc-ink); box-shadow: none; }
       .card.main .q, .card.main .meta { color: rgba(8, 7, 10, 0.72); }
+      .card.bi { background: #0d22b5; color: #fff; box-shadow: none; }
+      .card.bi .q, .card.bi .meta { color: rgba(255, 255, 255, 0.78); }
+      .card.main:hover { background: #e4ff8f; } .card.bi:hover { background: #1830d0; }
       .card .t { font-weight: 400; font-size: 28px; letter-spacing: -0.03em; line-height: 1.05; }
       .card .q { color: var(--ink-2); font-weight: 300; }
       .card .meta { margin-top: auto; font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--ink-3); display: flex; justify-content: space-between; gap: 12px; }
@@ -52,22 +55,20 @@
       <h1>Teach us<br />how to <em>feel</em></h1>
       <p class="lede">
         Kunnen we belichaamde kennis overdragen, aan elkaar en aan machines? Hier staan de prototypes en werkvormen
-        van het project. Elk is een kleine proef: met hartslagbanden, bewegingssensoren, stemmen en modellen.
+        van het project.
       </p>
 
       <h2>Werkvormen</h2>
       <div class="grid">
-        <a class="card main" href="/app.html#speelkamer">
-          <span class="tag">hoofdproject</span>
-          <span class="t">Speelkamer</span>
-          <span class="q">Acht werkvormen met hart, adem en beweging: van Wiens klok? tot machine- en AI-meditaties.</span>
+        <a class="card main" href="/app.html#lummellab">
+          <span class="t">Lummellab</span>
+          <span class="q">Kunnen machines helpen ons beter te leren lummelen? En kunnen we machines leren rusten? Experimenteer ermee in het lummellab.</span>
           <span class="meta"><span>hartslagband · M5Stick · telefoon</span><span>→</span></span>
         </a>
-        <a class="card" href="/dier-nadoen/">
-          <span class="tag">nieuw</span>
-          <span class="t">Dier nadoen</span>
-          <span class="q">Beweeg als een kikker, vogel, slang of paard. Bouw samen een model dat raadt welk dier je bent, en probeer het daarna te foppen.</span>
-          <span class="meta"><span>M5Stick of telefoon · de hele AI-keten</span><span>→</span></span>
+        <a class="card bi" href="/body-intelligence/">
+          <span class="t">B.I. lab</span>
+          <span class="q">Als er A.I. is, waarom dan geen B.I.? Doe een dier, een machine of een klap na, en bouw samen een model dat raadt wat je doet. Waar werkt die logica voor een lichaam, en waar niet?</span>
+          <span class="meta"><span>Body Intelligence · M5Stick of telefoon</span><span>→</span></span>
         </a>
       </div>
 
@@ -79,13 +80,8 @@
           <span class="meta"><span>API-sleutels nodig</span><span>→</span></span>
         </a>
         <a class="card" href="/app.html#huiskamer">
-          <span class="t">Huiskamer v2</span>
+          <span class="t">Huiskamer</span>
           <span class="q">De kamer luistert: een AI-dirigent die alleen via huishoudelijke apparaten spreekt. Kan een kamer zonder woorden een groep laten lummelen?</span>
-          <span class="meta"><span>API-sleutels nodig</span><span>→</span></span>
-        </a>
-        <a class="card" href="/app.html#huiskamer-v1">
-          <span class="t">Huiskamer v1</span>
-          <span class="q">De eerste versie van De kamer luistert.</span>
           <span class="meta"><span>API-sleutels nodig</span><span>→</span></span>
         </a>
         <a class="card" href="/tijdatlas.html">
@@ -100,6 +96,7 @@
         <a href="https://github.com/twetering/tuhtf/blob/main/docs/over-tuhtf.md">Over TUHTF</a>
         <a href="https://github.com/twetering/tuhtf/blob/main/docs/handleiding-docenten.md">Handleiding voor docenten</a>
         <a href="https://github.com/twetering/tuhtf/tree/main/docs/werkvormen">Werkvormen</a>
+        <a href="https://github.com/twetering/tuhtf/tree/main/docs/body-intelligence">B.I. · Body Intelligence</a>
         <a href="https://github.com/twetering/tuhtf/blob/main/docs/hardware.md">Hardware</a>
         <a href="https://github.com/twetering/tuhtf/blob/main/docs/techniek.md">Techniek</a>
       </div>

@@ -217,7 +217,7 @@ export default function Speelkamer() {
 function Brand({ small = false }: { small?: boolean }) {
   return (
     <div>
-      <div className={`display ${small ? 'text-[22px]' : 'text-[40px]'}`}>Speelkamer</div>
+      <div className={`display ${small ? 'text-[22px]' : 'text-[40px]'}`}>Lummellab</div>
       {!small && <div className="mono text-[10.5px] tracking-[0.16em] uppercase text-ink-3 mt-2">belichaamde kennis · tuhtf</div>}
     </div>
   );

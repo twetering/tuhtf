@@ -1,18 +1,18 @@
 /*
- * Speelkamer · M5StickC Plus2 als bewegingszender
+ * Lummellab · M5StickC Plus2 als bewegingszender
  *
  * Leest de ingebouwde IMU (versnelling + gyro) op 50 Hz en stuurt elke 100 ms
- * een pakketje via wifi/MQTT naar het Speelkamer-kanaal:
+ * een pakketje via wifi/MQTT naar het Lummellab-kanaal:
  *   topic  tuhtf/speelkamer/<KANAAL>/lijf/<id>
  *   json   {"name":"stick","raw":[x,y,z, ...],"g":[gx,gy,gz, ...],"t":ms,"seq":n,"hz":50,"gyro":12.3,"bat":87,"btn":0}
- * raw = versnelling in milli-g. De Speelkamer haalt daar pas, onrust, kanteling,
+ * raw = versnelling in milli-g. Het Lummellab haalt daar pas, onrust, kanteling,
  * adem en schrik uit (zelfde analyse als voor de Polar H10 en telefoons).
  *
  * Knoppen:
  *   A (groot, voorkant)  korte druk = 'tik' naar het kanaal (btn telt op) · lang = naam wisselen
  *   B (zijkant)          scherm aan/uit (spaart batterij)
  *
- * Instellen: wifi en kanaal komen uit .env of secrets.h (zie instellingen hieronder). Kanaal = de code in de Speelkamer
+ * Instellen: wifi en kanaal komen uit .env of secrets.h (zie instellingen hieronder). Kanaal = de code in het Lummellab
  * (veld naast 'open kanaal'), bijv. huiskamer-7ke8.
  */
 
@@ -35,7 +35,7 @@
 #define WIFI_PASS ""
 #endif
 #ifndef KANAAL
-#define KANAAL "huiskamer-7ke8"             // zelfde code als in de Speelkamer (⚙ → kanaal)
+#define KANAAL "huiskamer-7ke8"             // zelfde code als in het Lummellab (⚙ → kanaal)
 #endif
 const char* NAMEN[]   = {"stick", "Anouk", "Bram", "Celine", "Daan", "Esra", "Floor", "Gijs", "Hanna"};
 const char* BROKER    = "broker.hivemq.com"; // zelfde openbare broker als de webapp (die via wss:8884)

@@ -1,6 +1,6 @@
 # M5StickC Plus2 als bewegingszender
 
-De stick stuurt zijn bewegingssensor (versnelling en gyro, 50 Hz) via wifi naar het Speelkamer-kanaal. Hij verschijnt dan als lichaam met ▣. De Speelkamer haalt er pas, onrust, kanteling, adem en schrik uit, net als bij een Polar H10 of een telefoon.
+De stick stuurt zijn bewegingssensor (versnelling en gyro, 50 Hz) via wifi naar het Lummellab-kanaal. Hij verschijnt dan als lichaam met ▣. Het Lummellab haalt er pas, onrust, kanteling, adem en schrik uit, net als bij een Polar H10 of een telefoon.
 
 ## Instellen
 

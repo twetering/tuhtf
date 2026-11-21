@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import SwarmPerformance from './SwarmPerformance';
-import HuiskamerLab from './huiskamer/HuiskamerLab';
 import Lab2 from './huiskamer2/Lab2';
 import Speelkamer from './speelkamer/Speelkamer';
 import { KlokScherm, Zender } from './speelkamer/Zender';
@@ -19,8 +18,8 @@ export default function App() {
   const hash = useHash();
   if (hash.startsWith('#speelkamer/zender')) return <Zender />;
   if (hash.startsWith('#speelkamer/klok')) return <KlokScherm />;
-  if (hash.startsWith('#speelkamer')) return <Speelkamer />;
-  if (hash.startsWith('#huiskamer-v1')) return <HuiskamerLab />;
+  // #lummellab is de nieuwe naam; #speelkamer blijft werken voor oude links en zenders
+  if (hash.startsWith('#lummellab') || hash.startsWith('#speelkamer')) return <Speelkamer />;
   if (hash.startsWith('#huiskamer')) return <Lab2 />;
   return <SwarmPerformance />;
 }

@@ -1,6 +1,6 @@
 # Andere prototypes in deze repo
 
-Naast de Speelkamer staan hier eerdere en parallelle proeven uit TUHTF. Ze zijn minder uitgewerkt als werkvorm, maar laten zien waar het project vandaan komt.
+Naast het Lummellab staan hier eerdere en parallelle proeven uit TUHTF. Ze zijn minder uitgewerkt als werkvorm, maar laten zien waar het project vandaan komt.
 
 ## Zwermcanvas (`/app.html`)
 
@@ -10,7 +10,7 @@ Een aantal LLM-agents tekent elk één lijnstukje per beurt op een gedeeld canva
 
 Vereist API-sleutels van één of meer taalmodelaanbieders (zie `.env.example`). Start met `npm run dev`.
 
-## Huiskamer v1 en v2: *De kamer luistert* (`/app.html#huiskamer-v1`, `/app.html#huiskamer`)
+## Huiskamer: *De kamer luistert* (`/app.html#huiskamer`)
 
 *Kan een kamer zonder woorden een groep laten lummelen?*
 
@@ -18,7 +18,7 @@ Een simulatie van een workshop: tien lichamen met hartslag in een kamer vol huis
 
 De dramaturgie is: aankomen → zwerm → lummelen → landen. Het artistieke ideaal is een AI die zichzelf overbodig maakt. Na afloop toont een **partituur** wie wat hoorde en wat dat met de groep deed. Die onthulling hoort bij het werk.
 
-Veel ideeën, zoals de zwerm, het lummelen en de huishoudelijke apparaten, zijn doorgegroeid in de Speelkamer.
+Veel ideeën, zoals de zwerm, het lummelen en de huishoudelijke apparaten, zijn doorgegroeid in het Lummellab.
 
 ## Tijdatlas (`/tijdatlas.html`)
 

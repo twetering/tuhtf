@@ -4,7 +4,7 @@
  *   node scripts/meditaties/probeer.mjs            alle proefjes (alleen wat nog niet in de cache staat kost credits)
  *   node scripts/meditaties/probeer.mjs gemini     alleen proefjes waarvan de id 'gemini' bevat
  *   node scripts/meditaties/probeer.mjs --tekst    geen audio: toont de teksten met geschatte spreektijd en of ze passen
- * Uitvoer: public/meditaties/proef/<id>.mp3 + index.json (te beluisteren in de Speelkamer → AI-meditaties).
+ * Uitvoer: public/meditaties/proef/<id>.mp3 + index.json (te beluisteren in het Lummellab → AI-meditaties).
  */
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';

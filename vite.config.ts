@@ -11,7 +11,7 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'index.html'),
         app: path.resolve(__dirname, 'app.html'),
-        dierNadoen: path.resolve(__dirname, 'dier-nadoen/index.html'),
+        bodyIntelligence: path.resolve(__dirname, 'body-intelligence/index.html'),
       },
     },
   },

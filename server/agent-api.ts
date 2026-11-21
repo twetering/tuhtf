@@ -5,8 +5,6 @@ import { runAgentTurn } from '../lib/runAgentTurn';
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import type { DirigentRequest } from '../lib/huiskamerTypes';
-import { runDirigent } from '../lib/dirigent';
 import type { Dirigent2Request } from '../lib/huiskamer2Types';
 import { runDirigent2 } from '../lib/dirigent2';
 
@@ -33,20 +31,6 @@ app.post('/api/agent-turn', async (req, res) => {
     console.error(e);
     const msg = e instanceof Error ? e.message : 'Agent turn failed';
     res.status(500).json({ error: msg });
-  }
-});
-
-app.post('/api/dirigent', async (req, res) => {
-  try {
-    const body = req.body as DirigentRequest;
-    if (typeof body?.groupAvg !== 'number' || !Array.isArray(body.persons)) {
-      res.status(400).json({ error: 'Invalid dirigent payload' });
-      return;
-    }
-    res.json(await runDirigent(body));
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: e instanceof Error ? e.message : 'Dirigent failed' });
   }
 });
 

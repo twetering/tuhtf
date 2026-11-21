@@ -1,4 +1,4 @@
-/** Kleine geluidsbibliotheek voor de Speelkamer (alles synthetisch, WebAudio). */
+/** Kleine geluidsbibliotheek voor het Lummellab (alles synthetisch, WebAudio). */
 
 let ctx: AudioContext | null = null;
 let master: GainNode;

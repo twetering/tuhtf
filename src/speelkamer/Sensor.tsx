@@ -196,7 +196,7 @@ function SensorView({ hub, body, proc, bodies, onPick, plek, setPlek }: { hub: B
       <Uitleg title="Wat de getallen betekenen">
         <ul>
           <li><b>Zwaartekracht</b> hoort in rust 1000 mg te zijn. Wijkt het veel af terwijl je stilstaat, dan is de sensor slecht gekalibreerd.</li>
-          <li><b>Ademkwaliteit</b> combineert signaalsterkte boven de ruis met hoe regelmatig de laatste ademhalingen waren. Bewust wisselen (ademoefening) mag; bij lopen of springen zakt hij naar 0 en zegt de Speelkamer eerlijk ‘geen adem’.</li>
+          <li><b>Ademkwaliteit</b> combineert signaalsterkte boven de ruis met hoe regelmatig de laatste ademhalingen waren. Bewust wisselen (ademoefening) mag; bij lopen of springen zakt hij naar 0 en zegt het Lummellab eerlijk ‘geen adem’.</li>
           <li><b>Sprong</b>: de sensor voelt in de lucht bijna geen versnelling (vrije val). Uit de vliegtijd volgt de hoogte: h = g·t²/8.</li>
           <li><b>Omwenteling</b>: de draaisnelheid opgeteld zolang hij boven 120 °/s blijft. 360° is één hele draai, salto of pirouette.</li>
         </ul>

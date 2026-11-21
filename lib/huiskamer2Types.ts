@@ -1,5 +1,5 @@
 /**
- * Types voor "De kamer luistert" (Huiskamer v2).
+ * Types voor "De kamer luistert" (Huiskamer).
  * Twee kanalen: de kamer (gedeeld) en het oor (koptelefoon per persoon).
  * Doelen zijn relatief: % van de persoonlijke hartslagreserve (HRR).
  */

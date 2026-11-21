@@ -1,6 +1,6 @@
 /**
- * Gesimuleerde "leerling" met een sensor om de pols, om alles zonder hardware
- * te kunnen proberen. Elk dier heeft een eigen beweging; elke gesimuleerde
+ * Gesimuleerde deelnemer met een sensor om de pols, om alles zonder hardware
+ * te kunnen proberen. Elk dier, elke machine en elke bedoeling heeft een eigen beweging; elke gesimuleerde
  * persoon doet het net anders (groter, sneller, schuiner).
  */
 
@@ -65,6 +65,65 @@ export function simSample(animal: string, t: number, s: Style): { a: number[]; g
       const p1 = Math.max(0, Math.sin(w * T)) ** 4, p2 = Math.max(0, Math.sin(w * T - 1.1)) ** 4;
       a = [A * 350 * Math.sin(w * T), A * 200 * Math.cos(w * T), A * (1300 * p1 + 700 * p2 - 400)];
       g = [A * 70 * Math.sin(w * T), A * 170 * Math.sin(w * T), 0];
+      break;
+    }
+    // ---- machines: de arm als slinger, trommel, wisser of ventilator
+    case 'klok': {
+      // arm als slinger, met een harde tik op elk uiterste (één per seconde)
+      const w = Math.PI; // 0,5 Hz heen en weer = 1 tik per seconde
+      roll += A * 30 * Math.sin(w * T);
+      const ph = (T % 1 + 1) % 1;
+      const tik = ph < 0.04 ? A * 700 * Math.sin((ph / 0.04) * Math.PI) : 0;
+      a = [tik * 0.6, 0, tik];
+      g = [0, 0, A * 30 * w * Math.cos(w * T)]; // °/s: afgeleide van de rol
+      break;
+    }
+    case 'wasmachine': {
+      // trommel: zes seconden rustig rondjes, dan vier seconden centrifugeren
+      const ph = T % 10;
+      const f = ph < 6 ? 0.9 : 3.2, r = ph < 6 ? 450 : 220;
+      const w = 2 * Math.PI * f;
+      a = [A * r * Math.sin(w * T), A * r * Math.cos(w * T), A * 60 * Math.sin(2 * w * T)];
+      g = [0, 0, A * (ph < 6 ? 160 : 420)];
+      break;
+    }
+    case 'ruitenwisser': {
+      // grote, gladde boog met een korte stilstand aan elke kant
+      const w = 2 * Math.PI * 0.7;
+      const s = Math.max(-1, Math.min(1, 1.25 * Math.sin(w * T)));
+      roll += A * 60 * s;
+      a = [A * 250 * Math.cos(w * T), 0, 0];
+      g = [0, 0, Math.abs(s) > 0.98 ? 0 : A * 75 * w * Math.cos(w * T)];
+      break;
+    }
+    case 'ventilator': {
+      // langzaam heen en weer draaien, met een constant zoemen
+      const w = 2 * Math.PI * 0.15;
+      roll += A * 40 * Math.sin(w * T);
+      const zoem = A * 90 * Math.sin(2 * Math.PI * 11 * T);
+      a = [zoem, zoem * 0.5, zoem * 0.3];
+      g = [0, 0, A * 40 * w * Math.cos(w * T)];
+      break;
+    }
+    // ---- een klap, met verschillende bedoelingen (in de lucht of op een kussen)
+    case 'woedend':
+    case 'grapje':
+    case 'gespeeld':
+    case 'aarzelend': {
+      const P = { woedend: 2.2, grapje: 2.0, gespeeld: 2.6, aarzelend: 3.2 }[animal]!;
+      const kracht = { woedend: 3200, grapje: 1300, gespeeld: 1500, aarzelend: 500 }[animal]!;
+      const duur = { woedend: 0.12, grapje: 0.22, gespeeld: 0.35, aarzelend: 0.5 }[animal]!;
+      const ph = T % P;
+      if (ph < duur) {
+        const x = ph / duur;
+        const vorm = animal === 'aarzelend' ? Math.sin(x * Math.PI) * (x < 0.6 ? 1 : 0.4) : Math.sin(x * Math.PI);
+        a = [A * kracht * vorm, A * kracht * 0.25 * vorm, 0];
+        g = [0, 0, A * (kracht / 6) * vorm];
+        if (animal === 'woedend' && x > 0.85) a[0] -= A * 1800; // abrupt stoppen bij de inslag
+      } else if (animal === 'grapje' && ph < duur + 0.4) {
+        // nalachen: losse, kleine schokjes
+        a = [A * 200 * Math.sin(40 * ph), A * 150 * Math.sin(33 * ph), 0];
+      }
       break;
     }
     default: {
