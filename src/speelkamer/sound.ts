@@ -192,6 +192,41 @@ export function ping(vol = 0.4, n = 1) {
   }
 }
 
+/** Slag van een staafgong, zoals in een oude regulateur: een houten hamertje, een lage inharmonische toon die lang nazingt. */
+export function gong(vol = 0.5, base = 196) {
+  if (!soundReady()) return;
+  const { ctx } = audio();
+  const t = ctx.currentTime + 0.01;
+  const bus = ctx.createGain();
+  bus.gain.value = vol;
+  const lp = ctx.createBiquadFilter();
+  lp.type = 'lowpass';
+  lp.frequency.setValueAtTime(5200, t);
+  lp.frequency.exponentialRampToValueAtTime(900, t + 3);
+  bus.connect(lp).connect(out());
+  // vrije staaf: partialen 1 · 2.76 · 5.40 · 8.93, plus een zweving door een iets verstemde tweeling
+  for (const [r, a, d] of [[1, 1, 7], [1.004, 0.5, 6], [2.756, 0.55, 4], [5.404, 0.28, 2.2], [8.933, 0.12, 1.1]] as const) {
+    const o = ctx.createOscillator();
+    o.frequency.value = base * r;
+    const g = ctx.createGain();
+    env(g, t, a, 0.003, d);
+    o.connect(g).connect(bus);
+    o.start(t);
+    o.stop(t + d + 0.1);
+  }
+  // het hamertje
+  const n = noiseSource();
+  const bp = ctx.createBiquadFilter();
+  bp.type = 'bandpass';
+  bp.frequency.value = 1800;
+  bp.Q.value = 1.2;
+  const g = ctx.createGain();
+  env(g, t, 0.5, 0.001, 0.05);
+  n.connect(bp).connect(g).connect(bus);
+  n.start(t);
+  n.stop(t + 0.1);
+}
+
 export function chime(ok: boolean) {
   if (!soundReady()) return;
   const { ctx } = audio();

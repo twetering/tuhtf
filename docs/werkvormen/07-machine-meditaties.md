@@ -22,7 +22,35 @@ We zoeken de schoonheid van het niksen bij een machine die bezig is. Het werk dr
 
 ## De machines
 
-### Huis
+### Analoog × digitaal
+
+*Ontwerpopdracht: wat krijg je als je software in een oude machine stopt?* Vier mashups van een huishoudelijk apparaat en een softwaremetafoor. Ze zijn in 3D gebouwd, zo echt mogelijk, met licht, glas, metaal en stof. Ze werken voor je terwijl jij rustig wordt.
+
+Het idee erachter: we wachten al een eeuw op machines. Eerst op de magnetron en de wasmachine, nu op laadwieltjes en een AI die "nadenkt". De oude machines hebben een lichaam: ze zoemen, draaien en worden warm. De digitale lijken er geen te hebben, maar hun beelden van wachten (opwarmen, opschonen, bufferen, denken) komen uit dezelfde keuken. Door ze samen te smelten wordt zichtbaar hoe lichamelijk digitaal wachten eigenlijk is. Een datacentrum wordt écht warm.
+
+<p><img src="../img/mashup-opwarmen.png" width="49%" alt="Opwarmen"> <img src="../img/mashup-opschonen.png" width="49%" alt="Opschonen"></p>
+<p><img src="../img/mashup-nadenken.png" width="49%" alt="Nadenken"> <img src="../img/mashup-bufferen.png" width="49%" alt="Bufferen"></p>
+
+*Opwarmen, Opschonen, Nadenken en Bufferen: vier werkwoorden.*
+
+| Mashup | Wat je ziet | Op je hartslag |
+|---|---|---|
+| **Opwarmen**<br>magnetron × datacentrum | Een magnetron uit de jaren tachtig. Op het draaiplateau staat een klein datacentrum. De racks knipperen en worden langzaam warm. Uit de kasten stijgen getallen op als stoom: enen en nullen, en de gewichten van een model. | Het plateau draait tien slagen per rondje. De kookwekker tikt één seconde terug per hartslag: twee minuten lichaamstijd. Bij elke slag stijgt er een wolkje getallen op. |
+| **Opschonen**<br>vaatwasser × defragmenteren | Een open vaatwasser, het bovenrek met kopjes uitgetrokken. De borden in het onderrek zijn de blokken van een harde schijf: terracotta is gefragmenteerd, kobalt staat op zijn plek, celadon is een systeembestand dat nooit verschuift. Daarna spoelt hij na en begint een nieuwe dag. | Bij elke hartslag zet de machine één bord op zijn plaats, met een tikje van de leeskop en het klinken van porselein. De sproeiarm geeft een stoot. |
+| **Nadenken**<br>klok × hartslag | Een regulateur aan de muur. Uur- en minuutwijzer geven de gewone tijd aan. De terracotta lolliwijzer is je hart. Telkens als hij de minuutwijzer inhaalt, slaat de klok: de tijd en je hartslag raken elkaar even. | De hartwijzer springt één streepje per slag, de slinger zwaait één keer per slag. Hoe rustiger je hart, hoe langer het duurt tot de klok weer slaat. |
+| **Bufferen**<br>wasmachine × denkwoorden | Een voorlader die nadenkt zoals een AI. De fases van het programma heten marineren, karnen, sudderen, herkauwen, mijmeren en zweven. Rond de deur draait een laadwieltje van lampjes. De trommel heeft de echte wascadans: rondjes linksom, even stil, rondjes rechtsom. Binnenin alleen schuim. | Het wieltje zet één stap per hartslag. De trommel telt zijn cadans in hartslagen, dus hij draait trager als jij rustiger wordt. |
+
+**Alleen de hartslag.** De mashups volgen alleen je hart. Dat is één helder ritme dat je kunt zien (een stap, een bord, een tik) en horen. Twee ritmes tegelijk maakt het beeld onrustig en de koppeling onduidelijk. De adem wordt wel gemeten. Zo laat het experiment zien of een machine die je hart spiegelt ook je ademhaling vertraagt, zonder dat ze die nadoet.
+
+**In de expo.** Elke mashup kan volledig scherm (de knop rechtsboven of de toets `f`). Na een paar seconden zonder beweging verdwijnen de knoppen en de cursor. De toelichting staat achter het i-icoon, zodat het beeld zelf leeg blijft.
+
+De code staat in `src/speelkamer/mashups/`. Alles is procedureel, zonder 3D-bestanden: een machine is een functie die een scène bouwt en per frame de hartslag krijgt. Een nieuwe mashup maak je door een bestand naast de andere te zetten.
+
+### Eerdere schetsen
+
+Onder **eerdere schetsen** staan de eerste, platte versies: tien losse machines, analoog en digitaal apart.
+
+#### Analoog
 
 ![Machine: vaatwasser-projectie](../img/machine-vaatwasser.png)
 *Nog 1:12: de vaatwasser projecteert de resterende tijd op de vloer. Zet hem op een beamer, naar beneden gericht.*
@@ -34,7 +62,7 @@ We zoeken de schoonheid van het niksen bij een machine die bezig is. Het werk dr
 | vaatwasser | **Nog 1:12** | Een moderne vaatwasser projecteert de resterende tijd als lichtvlek op de keukenvloer. Je kijkt ernaar zonder iets te verwachten. | De tijd telt één seconde af per hartslag. |
 | klok | **Hartslagtijd** | Een klok die één seconde verspringt per hartslag. Rust je, dan loopt jouw tijd achter. | Echte tijd tegenover lichaamstijd, en het verschil daartussen. |
 
-### Digitaal
+#### Digitaal
 
 ![Machine: serverruimte](../img/machine-server.png)
 *Serverruimte, spiegelend op hart en adem. Rechts het A/B-experiment.*

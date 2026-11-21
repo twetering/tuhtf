@@ -2,17 +2,24 @@ import { useEffect, useRef, useState } from 'react';
 import type { Body, BodyHub } from './bodies';
 import { Defrag, Denkt, Laden, Modem, Projectie, Server, type Drive } from './Digitaal';
 import { SimControls } from './Me';
+import Mashup, { type MashupKind } from './mashups/Mashup';
 import { Hum, knock, ping, tick } from './sound';
 import { ClockFace, Label, Seg, Spark, Uitleg, sourceMark, useEvents, useFrame } from './ui';
 
-type Machine = 'magnetron' | 'wasmachine' | 'projectie' | 'klok' | 'server' | 'laden' | 'modem' | 'defrag' | 'denkt' | 'magnetron2';
+type Machine = MashupKind | 'magnetron' | 'wasmachine' | 'projectie' | 'klok' | 'server' | 'laden' | 'modem' | 'defrag' | 'denkt' | 'magnetron2';
 type Couple = 'eigen' | 'hart' | 'adem' | 'beide';
 
+const MASHUPS: MashupKind[] = ['opwarmen', 'opschonen', 'nadenken', 'bufferen'];
+const isMashup = (m: Machine): m is MashupKind => (MASHUPS as string[]).includes(m);
 const GROEPEN: { titel: string; items: Machine[] }[] = [
-  { titel: 'huis', items: ['magnetron', 'wasmachine', 'projectie', 'klok'] },
+  { titel: 'analoog', items: ['magnetron', 'wasmachine', 'projectie', 'klok'] },
   { titel: 'digitaal', items: ['server', 'laden', 'modem', 'defrag', 'denkt', 'magnetron2'] },
 ];
 const TEKST: Record<Machine, { titel: string; kort: string; regel: string; spiegel: string }> = {
+  opwarmen: { titel: 'Opwarmen', kort: 'magnetron × datacentrum', regel: 'Een magnetron uit de jaren tachtig. Op het draaiplateau staat geen mok maar een klein datacentrum. De racks knipperen en worden langzaam warm, en uit de kasten stijgen getallen op als stoom: enen en nullen, en de gewichten van een model. Je kijkt naar iets dat opwarmt, zoals je altijd naar een magnetron kijkt.', spiegel: 'Het plateau draait mee met je hart: tien slagen per rondje. De kookwekker tikt één seconde terug per hartslag, twee minuten lichaamstijd. Bij elke slag stijgt er een wolkje getallen op.' },
+  opschonen: { titel: 'Opschonen', kort: 'vaatwasser × defragmenteren', regel: 'Een open vaatwasser, het bovenrek met kopjes uitgetrokken. De borden in het onderrek zijn de blokken van een harde schijf: terracotta is gefragmenteerd, kobalt staat op zijn plek, celadon is een systeembestand dat nooit verschuift. De machine ruimt op, bord voor bord. Daarna spoelt hij na, en begint een nieuwe dag. Op de vloer ligt de kaart van de schijf als lichtvlek.', spiegel: 'Bij elke hartslag zet de machine één bord op zijn plaats en geeft de sproeiarm een stoot.' },
+  nadenken: { titel: 'Nadenken', kort: 'klok × hartslag', regel: 'Een regulateur aan de muur. Uur- en minuutwijzer geven gewoon de tijd aan. De terracotta lolliwijzer is je hart. Telkens als hij de minuutwijzer inhaalt, slaat de klok: de tijd en je hartslag raken elkaar even. Over de muur trekt langzaam het licht van een raam.', spiegel: 'De hartwijzer springt één streepje per hartslag en de slinger zwaait één keer per slag. Hoe rustiger je hart, hoe langer het duurt tot de klok weer slaat.' },
+  bufferen: { titel: 'Bufferen', kort: 'wasmachine × denkwoorden', regel: 'Een voorlader die nadenkt zoals een AI. De fases van het wasprogramma heten marineren, karnen, sudderen, herkauwen, mijmeren en zweven. Rond de deur draait een laadwieltje van lampjes. De trommel heeft de echte wascadans: een paar rondjes linksom, even stil, rondjes rechtsom. Binnenin alleen schuim.', spiegel: 'Het wieltje zet één stap per hartslag. De trommel telt zijn cadans in hartslagen, dus hij draait trager als jij rustiger wordt.' },
   magnetron: { titel: 'Draaiplateau', kort: 'magnetron', regel: 'Een mok die langzaam rondjes draait in warm licht. Wachten tot de piep.', spiegel: 'Het plateau draait één keer per ademhaling. Een echt plateau draait 5 à 6 keer per minuut: het tempo van rustig ademen.' },
   wasmachine: { titel: 'Trommel', kort: 'wasmachine', regel: 'Wasgoed dat valt en weer wordt opgetild. Linksom, even stil, rechtsom.', spiegel: 'De trommel draait één keer per ademhaling.' },
   projectie: { titel: 'Nog 1:12', kort: 'vaatwasser', regel: 'Een moderne vaatwasser projecteert de resterende tijd als lichtvlek op de keukenvloer. Je kijkt ernaar zonder iets te verwachten.', spiegel: 'De tijd telt één seconde af per hartslag; de lichtgolven dijen uit op je adem.' },
@@ -29,7 +36,8 @@ const hasBreath = (b: Body | undefined) => !!b && (!!b.sim || b.acc.breathQ > 0.
 
 export default function Machines({ hub }: { hub: BodyHub }) {
   useFrame(30);
-  const [machine, setMachine] = useState<Machine>('projectie');
+  const [machine, setMachine] = useState<Machine>('opwarmen');
+  const [schetsen, setSchetsen] = useState(false);
   const [couple, setCouple] = useState<Couple>('beide');
   const [heartId, setHeartId] = useState<string | null>(null);
   const [breathId, setBreathId] = useState<string | null>(null);
@@ -73,6 +81,13 @@ export default function Machines({ hub }: { hub: BodyHub }) {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div className="flex items-center gap-2">
+          <span className="mono text-[10.5px] text-ink-3 uppercase tracking-[0.14em]">analoog × digitaal</span>
+          <Seg value={machine} options={MASHUPS} onChange={setMachine} labels={{ opwarmen: 'opwarmen', opschonen: 'opschonen', nadenken: 'nadenken', bufferen: 'bufferen' }} />
+        </div>
+        <button className={`chip ${schetsen ? 'on' : ''}`} onClick={() => setSchetsen(!schetsen)}>eerdere schetsen</button>
+      </div>
+      <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${schetsen ? '' : 'hidden'}`}>
         {GROEPEN.map((g) => (
           <div key={g.titel} className="flex items-center gap-2">
             <span className="mono text-[10.5px] text-ink-3 uppercase tracking-[0.14em]">{g.titel}</span>
@@ -81,7 +96,11 @@ export default function Machines({ hub }: { hub: BodyHub }) {
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <Seg value={couple} options={['eigen', 'hart', 'adem', 'beide'] as const} onChange={setCouple} labels={{ eigen: 'eigen tempo', hart: 'spiegelt hart', adem: 'spiegelt adem', beide: 'spiegelt hart + adem' }} />
+        {isMashup(machine) ? (
+          <Seg value={couple === 'eigen' ? 'eigen' : 'hart'} options={['eigen', 'hart'] as const} onChange={setCouple} labels={{ eigen: 'eigen tempo', hart: 'spiegelt hart' }} />
+        ) : (
+          <Seg value={couple} options={['eigen', 'hart', 'adem', 'beide'] as const} onChange={setCouple} labels={{ eigen: 'eigen tempo', hart: 'spiegelt hart', adem: 'spiegelt adem', beide: 'spiegelt hart + adem' }} />
+        )}
         <Bron label="hart" hub={hub} value={heart} onPick={setHeartId} filter={(b) => b.hr > 0 || !!b.sim} />
         <Bron label="adem" hub={hub} value={breathBody} onPick={setBreathId} filter={(b) => hub.procs.has(b.id) || !!b.sim} />
         <button className={`chip ${soundOn ? 'on' : ''}`} onClick={() => setSoundOn(!soundOn)}>geluid</button>
@@ -89,6 +108,9 @@ export default function Machines({ hub }: { hub: BodyHub }) {
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="card overflow-hidden relative aspect-[16/10] bg-room flex items-center justify-center">
+          {isMashup(machine) && (
+            <Mashup kind={machine} d={d} soundOn={soundOn} info={<><div className="text-[15px]">{T.titel} <span className="opacity-60">· {T.kort}</span></div><p className="opacity-85">{couple === 'eigen' ? 'In eigen tempo: de machine loopt op 60 tikken per minuut.' : T.spiegel}</p></>} />
+          )}
           {machine === 'klok' && <HartKlok beats={Math.floor(d.beat)} couple={useHeart ? 'hart' : 'eigen'} breaths={Math.floor(d.breath)} />}
           {machine === 'projectie' && <Projectie d={d} soundOn={soundOn} />}
           {machine === 'wasmachine' && <Wasmachine phase={d.breath / (useBreath ? 1 : 0.3)} soundOn={soundOn} />}
@@ -99,7 +121,7 @@ export default function Machines({ hub }: { hub: BodyHub }) {
           {machine === 'modem' && <Modem d={d} soundOn={soundOn} />}
           {machine === 'defrag' && <Defrag d={d} soundOn={soundOn} />}
           {machine === 'denkt' && <Denkt d={d} />}
-          {(couple === 'adem' || couple === 'beide') && !hasBreath(breathBody) && (
+          {!isMashup(machine) && (couple === 'adem' || couple === 'beide') && !hasBreath(breathBody) && (
             <div className="absolute left-3 top-3 mono text-[11px] px-2 py-1" style={{ background: 'rgba(0,0,0,.55)', color: '#fff' }}>geen meetbare adem: machine ademt in eigen tempo</div>
           )}
         </div>
@@ -121,7 +143,7 @@ export default function Machines({ hub }: { hub: BodyHub }) {
       </Uitleg>
       <Uitleg title="Het experiment">
         <p>Kan een machine jou rustig maken? En wat werkt beter: een gewone machine in haar eigen tempo, of een machine die jouw ritme spiegelt?</p>
-        <p>Het experiment speelt dezelfde machine twee keer af, in willekeurige volgorde: één keer in eigen tempo, één keer spiegelend op hart en adem. Steeds wordt gemeten hoeveel je hartslag en ademtempo daalden (laatste 30 s tegenover eerste 30 s). De uitkomsten worden bewaard, zodat je over meerdere mensen en machines kunt vergelijken.</p>
+        <p>Het experiment speelt dezelfde machine twee keer af, in willekeurige volgorde: één keer in eigen tempo, één keer spiegelend op hart en adem. Steeds wordt gemeten hoeveel je hartslag en ademtempo daalden (laatste 30 s tegenover eerste 30 s). De vier analoog × digitaal-machines spiegelen alleen je hartslag: dat is één helder ritme dat je kunt zien en horen. Je adem wordt wel gemeten, zodat je kunt zien of een machine ook je ademhaling vertraagt zonder dat ze die nadoet. De uitkomsten worden bewaard, zodat je over meerdere mensen en machines kunt vergelijken.</p>
       </Uitleg>
       <Uitleg title="Bronnen">
         <p>Hartslag komt van een band, adem van een bewegingssensor op borst of buik (M5Stick, Polar H10). Dat mogen twee verschillende apparaten zijn. Zonder echte sensoren gebruikt het Lummellab een gesimuleerde ‘jij’, die je met de knoppen rechts kunt laten ontspannen.</p>

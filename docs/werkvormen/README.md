@@ -8,7 +8,7 @@ Elke pagina heeft dezelfde opbouw: thematische inbedding, artistiek statement, w
 4. [Beweging](04-beweging.md): sensor & kalibratie, stil-wedstrijd, ademzwerm, wie leidt?
 5. [Hartslaggesprek](05-hartslaggesprek.md): zonder woorden, met elkaars hart in je oor.
 6. [Is dit mijn hart?](06-is-dit-mijn-hart.md): tellen, herkennen, raden.
-7. [Machine-meditaties](07-machine-meditaties.md): tien machines, in eigen tempo of op jouw lichaam, met een experiment.
+7. [Machine-meditaties](07-machine-meditaties.md): vier 3D-mashups van oude machines en software (opwarmen, opschonen, nadenken, bufferen), in eigen tempo of op jouw hartslag, schermvullend voor de expo, met een experiment.
 8. [AI-meditaties](08-ai-meditaties.md): drie vaste meditaties en een live-meditatie die op je lichaam reageert.
 
 Los subproject, buiten het Lummellab:
